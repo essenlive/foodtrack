@@ -13,8 +13,6 @@ export default function Home({ page, blocks }) {
 }
 
 export const getStaticProps = async () => {
-  console.log("JSON.parse(process.env.PAGES)");
-  console.log(process.env.PAGES);
 
   const homePage = JSON.parse(process.env.PAGES).filter((pages)=>(pages.route === ""))[0];
   const page = await getPage(homePage.id);

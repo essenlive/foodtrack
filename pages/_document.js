@@ -20,7 +20,6 @@ class MyDocument extends Document {
                     <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
                     <Main />
                     <NextScript />
-                    {umami && <script async defer data-website-id={umami.id} src={umami.url}></script> }
                 </body>
             </Html>
         )
