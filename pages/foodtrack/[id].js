@@ -50,7 +50,8 @@ export default function Post({ page, blocks }) {
 }
 
 export const getStaticPaths = async () => {
-  console.log("JSON.parse(process.env.DATABASES)");
+  console.log("JSON.parse(process.env.DATABASES)"); 
+  console.log(process.env.DATABASES);
   let database = JSON.parse(process.env.DATABASES).filter((database) => (database.name === "foodtrack"))[0];
   database = await getDatabase(database.id, database.filter, database.sort);
 

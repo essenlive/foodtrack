@@ -2,7 +2,7 @@ import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN, }); 
 console.log("JSON.parse(process.env.DATABASES) notion");
-
+console.log(process.env.DATABASES);
 const databases = JSON.parse(process.env.DATABASES);
 
 
