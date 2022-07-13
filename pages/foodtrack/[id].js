@@ -7,8 +7,6 @@ import { FiArrowLeft } from "react-icons/fi";
 import Url from 'url-parse'
 
 export default function Post({ page, blocks }) {
-
-  console.log(page);
   if(!page)return(<div/>)
   const date = new Date(page.properties.Date.date.start).toLocaleString(
     "en-US",
@@ -52,6 +50,7 @@ export default function Post({ page, blocks }) {
 }
 
 export const getStaticPaths = async () => {
+  console.log("JSON.parse(process.env.DATABASES)");
   let database = JSON.parse(process.env.DATABASES).filter((database) => (database.name === "foodtrack"))[0];
   database = await getDatabase(database.id, database.filter, database.sort);
 

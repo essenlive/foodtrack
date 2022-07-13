@@ -13,7 +13,6 @@ class MyDocument extends Document {
             return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' }
             document.documentElement.dataset.theme = getUserPreference();
         `;
-        const umami = !process.env.NEXT_PUBLIC_UMAMI ? process.env.NEXT_PUBLIC_UMAMI : JSON.parse(process.env.NEXT_PUBLIC_UMAMI);
         return (
             <Html>
                 <Head/>

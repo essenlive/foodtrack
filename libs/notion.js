@@ -1,6 +1,8 @@
 import { Client } from "@notionhq/client";
 
-const notion = new Client({auth: process.env.NOTION_TOKEN,});
+const notion = new Client({ auth: process.env.NOTION_TOKEN, }); 
+console.log("JSON.parse(process.env.DATABASES) notion");
+
 const databases = JSON.parse(process.env.DATABASES);
 
 

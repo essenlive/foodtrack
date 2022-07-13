@@ -3,7 +3,6 @@ import Link from "next/link";
 
 
 export const RenderText = ({ text }) => {
-    console.log(text);
 
     if (!text) {
         return null;
