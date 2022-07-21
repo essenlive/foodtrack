@@ -121,7 +121,6 @@ export const RenderBlock = ({block}) => {
                     if ( !!item?.cover ){
                         src = item?.cover?.type === "external" ? item.cover.external.url : item.cover.file.url;
                     }
-                    console.log(src)
                     return (
                         <Card
                             id = {item.id}

@@ -1,11 +1,11 @@
 import styles from "@styles/layout.module.css";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import Navigation from "@components/Navigation";
+import Timeline from "@components/Timeline";
+import classNames from "classnames";
 
-const ThemeSwitch = dynamic(() => import("@components/ThemeSwitch"), { ssr: false, });
+export default function Layout({ page, children, nav, timeline }) {
 
-export default function Layout({ page, children }) {
     return (
         <main className={styles.container}>
             <Head>
@@ -55,11 +55,17 @@ export default function Layout({ page, children }) {
                 </>
             }
             </Head>
-            <Navigation/>
-            <ThemeSwitch />
-            <div className={styles.article}>
+            <Navigation 
+                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: nav.menuActive })}
+            />
+            {/* <Map className={styles.map}/> */}
+            <Timeline
+                className={styles.timeline}
+                timeline={timeline}
+                />
+            <article className={classNames(styles.article, { [`${styles.articleActive}`]: nav.articleActive })}>
                 {children}
-            </div>
+            </article>
         </main>
     );
 }

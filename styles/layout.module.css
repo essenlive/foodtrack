@@ -4,13 +4,38 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
+.navigation{ 
+  width: 0%;
+  height: 100%;
+  flex-grow: 0;
+}
+.navigationActive{  width: 35%; }
+
 .article{
-  width: 70%;
+  width: 0%;
+  height: 100%;
+}
+
+.articleActive{ width: 50%;}
+
+.timeline{ 
+  width: 10%;
+  height: 100%;
+  flex-grow: 1;
+}
+.map{ 
+  height: 100%;
+  flex-grow: 1;
+}
+
+.article{
   display: flex;
   flex-direction: column;
   position: relative;
   border-left: solid var(--black) var(--borderWidth);
+  flex-grow: 0;
 }
