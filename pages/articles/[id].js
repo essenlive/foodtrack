@@ -3,9 +3,10 @@ import { RenderText, RenderBlock } from "@components/RenderBlock";
 import Link from "next/link";
 import Layout from "@components/Layout";
 import styles from "@styles/article.module.css";
+import classNames from "classnames";
 import { FiArrowLeft } from "react-icons/fi";
 
-export default function Post({ page, blocks, timeline }) {
+export default function Articles({ page, blocks, timeline, className }) {
   if(!page)return(<div/>)
   const date = new Date(page.properties.Date.date.start).toLocaleString(
     "en-US",
@@ -29,7 +30,8 @@ export default function Post({ page, blocks, timeline }) {
           <FiArrowLeft />
         </div>
       </Link>
-      
+      <div className={classNames(className, styles.article)}>
+
       {page.cover &&
 
         <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
@@ -53,7 +55,9 @@ export default function Post({ page, blocks, timeline }) {
       <div className={styles.content}>
 
         {blocks.map((block) => (<RenderBlock block={block} key={block.id}/>))}
+        </div>
       </div>
+
     </Layout>
   );
 }

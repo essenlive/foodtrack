@@ -4,8 +4,9 @@ import { RenderText, RenderBlock } from "@components/RenderBlock";
 import styles from "@styles/about.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
+import classNames from "classnames";
 
-export default function Home({ page, blocks, timeline }) {
+export default function Home({ page, blocks, timeline, className }) {
   
   return (
     <Layout 
@@ -21,6 +22,7 @@ export default function Home({ page, blocks, timeline }) {
           <IoMdClose />
         </div>
       </Link>
+      <div className={classNames(className, styles.about)}>
 
 
       {page.cover &&
@@ -43,6 +45,7 @@ export default function Home({ page, blocks, timeline }) {
       </div>
       <div className={styles.content}>
         {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+        </div>
       </div>
     </Layout>
   );

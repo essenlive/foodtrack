@@ -62,8 +62,11 @@
 }
 
 .image {
-  width: 100%;
+  width: calc(100% + 4rem);
+  margin: 0.5rem -2rem;
   height: auto;
+  border-top: solid var(--black) var(--borderWidth) ;
+  border-bottom: solid var(--black) var(--borderWidth) ;
 }
 
 .code {
@@ -73,9 +76,6 @@
   border-radius: 2px;
 }
 
-.image {
-  margin: 1rem 0;
-}
 
 .bold {
   font-weight: bold;
