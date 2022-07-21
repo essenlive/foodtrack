@@ -2,7 +2,7 @@ import { getDatabase, getPage, getContent } from "@libs/notion";
 import { RenderText, RenderBlock } from "@components/RenderBlock";
 import Link from "next/link";
 import Layout from "@components/Layout";
-import styles from "@styles/works.module.css";
+import styles from "@styles/article.module.css";
 import { FiArrowLeft } from "react-icons/fi";
 import Url from 'url-parse'
 
@@ -18,16 +18,17 @@ export default function Post({ page, blocks }) {
 
   return (
     <Layout page={page}>
-      {page.cover &&
-
-        <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
-        page.cover.file.url} alt=""/>
-      }
       <Link href={`/`} >
         <div className={styles.back}>
           <FiArrowLeft />
         </div>
       </Link>
+      
+      {page.cover &&
+
+        <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
+        page.cover.file.url} alt=""/>
+      }
       <div className={styles.infos}>
         
       {page.page_title &&
@@ -43,14 +44,16 @@ export default function Post({ page, blocks }) {
         }
         
       </div>
+      <div className={styles.content}>
 
-          {blocks.map((block) => (<RenderBlock block={block} key={block.id}/>))}
+        {blocks.map((block) => (<RenderBlock block={block} key={block.id}/>))}
+      </div>
     </Layout>
   );
 }
 
 export const getStaticPaths = async () => {
-  let database = JSON.parse(process.env.DATABASES).filter((database) => (database.name === "foodtrack"))[0];
+  let database = JSON.parse(process.env.DATABASES).filter((database) => (database.name === "articles"))[0];
   database = await getDatabase(database.id, database.filter, database.sort);
 
   return {

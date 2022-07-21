@@ -7,9 +7,9 @@
     background: var(--font-color);
     color: var(--bg-color);
     border-radius: 2rem;
-    position: absolute;
-    top: 0.5rem;
-    right: -3rem;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
     box-shadow: var(--boxShadow-xl);
     z-index: 100;
     cursor: pointer;

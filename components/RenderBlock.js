@@ -1,8 +1,15 @@
 import styles from "@styles/blocks.module.css";
 import Link from "next/link";
+import Card from "@components/Card";
+
+export const RenderPlainText = (text) => {
+    if (!text) return null;
+    return (text.map(el => el.plain_text).join(""))
+}
 
 
 export const RenderText = ({ text }) => {
+
 
     if (!text) {
         return null;
@@ -23,7 +30,7 @@ export const RenderText = ({ text }) => {
                 ].join(" ")}
                 style={color !== "default" ? { color } : {}}
             >
-                {text.link ? <a href={text.link.url}>{text.content}</a> : text.content}
+                {text.link ? <a className="link" href={text.link.url}>{text.content}</a> : text.content}
             </span>
         );
     });
@@ -88,46 +95,48 @@ export const RenderBlock = ({block}) => {
             );
         case "child_page":
             return(
-            <Link href={`/${value.id}`}>
-                <a>
-                    {value.title}
-                </a>
-            </Link>);
+                <Link href={`/${value.id}`}>
+                    <span className="link">
+                        {value.title}
+                    </span>
+                </Link>);
         case "image":
             const src = value.type === "external" ? value.external.url : value.file.url;
             return (
                 <img className={styles.image} src={src} />
+            );
+        case "divider":
+            return (
+                <hr/>
             );
         case "child_database":
             const items = value.blocks;
             if(!items) return("")
             return (
             <ul className={styles.items}>
-                {items.map((item) => {
-                    const date = new Date(item.properties.Date.date.start).toLocaleString(
-                        "en-US",
-                        {
-                            month: "short",
-                            year: "numeric",
-                        }
-                    );
+                { items.map((item) => {
+                    const date = new Date(item.properties.Date.date.start).toLocaleString( "en-US",{ month: "short", year: "numeric"});
 
                     let src = null;
                     if ( !!item?.cover ){
                         src = item?.cover?.type === "external" ? item.cover.external.url : item.cover.file.url;
                     }
+                    console.log(src)
                     return (
-                        <Link key={item.id}  href={`/${value.title}/${item.id}`}>
-                        <li key={item.id} className={styles.item}>
-                            {src && <img className={styles.itemImage} src={src} />}
-                                <h3 className={styles.itemTitle}>
-                                    <RenderText text={item.properties.Name.title} />
-                                    {/* <span className={styles.itemStatus} status={item.properties.Status.select.name}>{item.properties.Status.select.name}</span> */}
-                                </h3>
-                                <p className={styles.itemDescription}>{date}</p>
-                        </li>
-                    </Link>
-                    );
+                        <Card
+                            id = {item.id}
+                            title={RenderPlainText(item.properties.Name.title)}
+                            description={date}
+                            tags={item.properties.Aliment.multi_select.map(el => el.name)}
+                            colorMap={item.properties.Aliment.multi_select.map(el => el.color)}
+                            link={{
+                                path: `/${value.title}/${item.id}`,
+                                text: "Lire l'article"
+                            }} 
+                            image={src ? { src: src } : null}
+
+                        />
+                    )
                 })}
             </ul>
             );

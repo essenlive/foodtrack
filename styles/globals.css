@@ -26,27 +26,29 @@ li:before {
   background-color: var(--font-color);
 }
 
-a {
+.link {
+  display: inline;
   color: inherit;
   font-weight: 500;
   position: relative;
   text-decoration: none;
   cursor: pointer;
+  width: fit-content;
 }
 
-a::after {
+.link::after {
   content: "";
   display: block;
   position: absolute;
   left: 0;
-  bottom: 0;
-  height: 0.2em;
+  bottom: -0.1rem;
+  height: var(--borderWidth);
   width: 100%;
   background-color: var(--font-color);
   transition: ease-in-out 0.2s;
 }
 
-a:hover::after {
+.link:hover::after {
   width: 0%;
 }
 
@@ -70,11 +72,5 @@ p {
 img {
   width: 100%;
   object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: var(--boxShadow-xl);
   transition: ease-in-out 0.2s;
-}
-
-.img:hover {
-  box-shadow: var(--boxShadow-2xl);
 }

@@ -1,0 +1,75 @@
+.card {
+  border: var(--black) var(--borderWidth) solid;
+  background: var(--white);
+  position: relative;
+  min-height: 300px;
+  width: 100%;
+}
+
+.card>div:nth-child(2) {
+  opacity: 0;
+}
+
+.card:hover>div:nth-child(2) {
+  opacity: 100;
+}
+
+.verso {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  background: var(--white);
+  flex-direction: column;
+  align-content: center;
+  transition: all 0.25s ease-in-out;
+  overflow: auto;
+}
+
+.title {
+  text-transform: uppercase;
+  color: var(--primary);
+  width: auto;
+  font-size: var(--font-sm);
+}
+.title, .link, .description, .tags {
+  padding: 0.5rem 1rem 0;
+  margin-top: 0;
+}
+
+.title:first-child, .link:first-child, .description:first-child {
+  max-width: 70%;
+}
+
+.title:last-child, .link:last-child, .description:last-child {
+  padding-bottom: 1rem;
+}
+
+.link{
+  font-size: var(--fontSize-sm);
+  font-weight: thin;
+}
+
+
+.description {
+  padding: 0.25rem 0.5rem;
+  max-width: 30%;
+  background: var(--white);
+  font-weight: 400;
+  overflow: hidden;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  font-size: var(--fontSize-xs);
+  text-overflow: ellipsis;
+  border: var(--black) var(--borderWidth) solid;
+  white-space: nowrap;
+}
+
+.image {
+  object-fit: cover;
+  border-bottom: var(--primary) var(--borderWidth) solid;
+  max-height: 40%;
+}
