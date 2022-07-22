@@ -1,5 +1,6 @@
 .article{
   overflow-y: scroll;
+  background-color: var(--white);
 }
 
 .cover {

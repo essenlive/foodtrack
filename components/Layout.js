@@ -1,8 +1,10 @@
 import styles from "@styles/layout.module.css";
 import Head from "next/head";
 import Navigation from "@components/Navigation";
-import Timeline from "@components/Timeline";
+import Resources from "@components/Resources";
 import classNames from "classnames";
+
+
 
 export default function Layout({ page, children, nav, timeline }) {
 
@@ -58,11 +60,11 @@ export default function Layout({ page, children, nav, timeline }) {
             <Navigation 
                 className={classNames(styles.navigation, { [`${styles.navigationActive}`]: nav.menuActive })}
             />
-            {/* <Map className={styles.map}/> */}
-            <Timeline
+            <Resources
                 className={styles.timeline}
                 timeline={timeline}
                 />
+                
             <article className={classNames(styles.article, { [`${styles.articleActive}`]: nav.articleActive })}>
                 {children}
             </article>

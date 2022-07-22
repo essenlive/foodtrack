@@ -115,7 +115,7 @@ export const RenderBlock = ({block}) => {
             return (
             <ul className={styles.items}>
                 { items.map((item) => {
-                    const date = new Date(item.properties.Date.date.start).toLocaleString( "en-US",{ month: "short", year: "numeric"});
+                    const date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
 
                     let src = null;
                     if ( !!item?.cover ){
