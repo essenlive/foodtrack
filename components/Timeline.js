@@ -43,7 +43,7 @@ export default function TimelineAlt({ className, timeline }) {
     ]
 
 
-    const timelineEvents = timeline.map((item, id) => {
+    const timelineEvents = timeline.filter((item => (item.properties?.Date?.date?.start && item.properties?.Date?.date?.end))).map((item, id) => {
         const start = dateToMillis(item.properties.Date.date.start);
         const end = dateToMillis(item.properties.Date.date.end);
 
@@ -65,7 +65,7 @@ export default function TimelineAlt({ className, timeline }) {
 
     return(
         <ul className={className}>
-            <Timeline width={600} height={300} events={timelineEvents} lanes={lanes} dateFormat={dateFormat} />
+            <Timeline width={300} height={300} events={timelineEvents} lanes={lanes} dateFormat={dateFormat} />
         </ul>
         )
 
