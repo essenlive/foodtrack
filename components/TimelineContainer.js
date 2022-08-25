@@ -7,7 +7,7 @@ const dateToMillis = (date) => {
     return d.getTime()     
 }
 
-export default function TimelineAlt({ className, timeline }) {
+export default function TimelineContainer({ className, timeline }) {
     const lanes = [
         {
             laneId: "peach",

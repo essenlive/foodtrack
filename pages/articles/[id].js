@@ -8,13 +8,15 @@ import { FiArrowLeft } from "react-icons/fi";
 
 export default function Articles({ page, blocks, timeline, className }) {
   if(!page)return(<div/>)
-  const date = new Date(page.properties.Date.date.start).toLocaleString(
-    "en-US",
-    {
-      month: "short",
-      year: "numeric",
-    }
-  );
+  let date = null
+  if (!!page.properties?.Date?.date?.start) {
+    date = new Date(page.properties.Date.date.start).toLocaleString("fr-FR", { 
+      month: "short", 
+      year: "numeric" 
+    });
+  };
+
+
 
   return (
     <Layout
@@ -41,7 +43,7 @@ export default function Articles({ page, blocks, timeline, className }) {
         
       {page.page_title &&
         <h2 className={styles.title}>
-          {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
+          {page?.icon && page?.icon?.emoji} <RenderText text={page.page_title} />
         </h2>
         }
 

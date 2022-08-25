@@ -3,16 +3,16 @@ import classNames from "classnames";
 import { RenderPlainText } from "@components/RenderBlock";
 import Card from "@components/Card";
 import dynamic from "next/dynamic";
-const Timeline = dynamic(() => import("@components/Timeline"), { ssr: false })
+const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
 
 export default function Resources({className, timeline}) {
 
     return(
         <div className={classNames(className, styles.resources)}>
-            <Timeline timeline={timeline} className={styles.timeline}/>
+            <TimelineContainer timeline={timeline} className={styles.timeline}/>
             <ul className={styles.articles}>
 
-                {timeline.map((item, id) => {
+                {timeline.filter((item => !!item.properties?.Date?.date?.start )).map((item, id) => {
                     let date = null
                     if ( !!item.properties?.Date?.date?.start){
                         date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });

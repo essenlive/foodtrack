@@ -48,7 +48,7 @@ export default function Layout({ page, children, nav, timeline }) {
 
 
             {page?.page_title && <title>Foodtrack | {page.page_title[0].plain_text}</title>}
-            {page?.icon.emoji ?
+            {page?.icon?.emoji ?
                 <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${page.icon.emoji}</text></svg>`}></link>
                 :
                 <>

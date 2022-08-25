@@ -114,7 +114,7 @@ export const RenderBlock = ({block}) => {
             if(!items) return("")
             return (
             <ul className={styles.items}>
-                { items.map((item) => {
+                    {items.filter((item => ( !! item.properties?.Date?.date?.start))).map((item) => {
                     const date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
 
                     let src = null;
