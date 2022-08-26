@@ -9,8 +9,12 @@ export const useSelection = create((set) => ({
 }))
 
 export const useFilters = create((set) => ({
-    filters: [],
-    setArticles: (articles) => set(articles),
+    filters: {
+        Type : null,
+        Phase : null,
+        Aliment : null
+    },
+    setFilters: (filter) => set((state) => ({ filters: {...state.filters, ...filter }})),
 }))
 
 export const useNavigation = create((set) => ({

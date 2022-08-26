@@ -35,7 +35,7 @@
   border: none;
   border-bottom: solid var(--black) var(--borderWidth);
   font-weight: 700;
-  margin: 0 0.5rem;
+  /* margin: 0 0.5rem; */
 
 }
 .select option{
