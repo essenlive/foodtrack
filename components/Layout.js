@@ -3,10 +3,14 @@ import Head from "next/head";
 import Navigation from "@components/Navigation";
 import Resources from "@components/Resources";
 import classNames from "classnames";
+import { useNavigation, useArticle, useFilters } from '@libs/states.js'
 
 
-
-export default function Layout({ page, children, nav, timeline }) {
+export default function Layout({ page, children, articles }) {
+    let { navigationState } = useNavigation((state) => state)
+    let { articleState } = useArticle((state) => state)
+    let { filters } = useFilters((state) => state)
+    let filteredArticles = articles ;
 
     return (
         <main className={styles.container}>
@@ -58,14 +62,14 @@ export default function Layout({ page, children, nav, timeline }) {
             }
             </Head>
             <Navigation 
-                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: nav.menuActive })}
+                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState }) }
             />
             <Resources
                 className={styles.timeline}
-                timeline={timeline}
+                articles={filteredArticles}
                 />
                 
-            <article className={classNames(styles.article, { [`${styles.articleActive}`]: nav.articleActive })}>
+            <article className={classNames(styles.article, { [`${styles.articleActive}`]: articleState })}>
                 {children}
             </article>
         </main>

@@ -5,17 +5,17 @@ import styles from "@styles/about.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
+import { useArticle } from "@libs/states";
 
-export default function Home({ page, blocks, timeline, className }) {
-  
+export default function Home({ page, blocks, articles, className }) {
+
+  let setArticleInactive = useArticle((state) => state.setArticleInactive);
+  setArticleInactive()
+
   return (
     <Layout 
       page={page}
-      nav={{
-        menuActive: true,
-        articleActive: true
-      }}
-      timeline={timeline}
+      articles={articles}
     >
       <Link href={`/`} >
         <div className={styles.close}>
@@ -53,16 +53,16 @@ export default function Home({ page, blocks, timeline, className }) {
 
 export const getStaticProps = async () => {
 
-  const thisPage = JSON.parse(process.env.PAGES).filter((pages)=>(pages.route === "about"))[0];
-  const page = await getPage(thisPage.id);
-  const pageContent = await getContent(thisPage.id);
-  const timeline = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
+  const aboutpageId = "28a70d4c59f54a84b57ae18abd4552e2";
+  const page = await getPage(aboutpageId);
+  const pageContent = await getContent(aboutpageId);
+  const articles = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
 
   return {
     props: {
       page,
       blocks: pageContent,
-      timeline
+      articles
     },
     revalidate: 1,
   };

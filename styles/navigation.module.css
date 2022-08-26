@@ -1,8 +1,9 @@
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 2rem;
   background-color: var(--secondary);
@@ -11,6 +12,23 @@
 .header.hidden{
   transform: translateX(-100%);
 }
+
+.logo{
+  width: 100%;
+  padding-right: 1rem;
+}
+
+.collapse{
+  position: absolute;
+  right: -1.25rem;
+  bottom: 2rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: var(--white);
+  border: solid var(--black) var(--borderWidth);
+}
+
 
 .select{
   background: none;

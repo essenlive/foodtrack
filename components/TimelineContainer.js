@@ -7,7 +7,8 @@ const dateToMillis = (date) => {
     return d.getTime()     
 }
 
-export default function TimelineContainer({ className, timeline }) {
+export default function TimelineContainer({ className, articles }) {
+    if(articles.length === 0 ) return (<div></div>)
     const lanes = [
         {
             laneId: "peach",
@@ -43,9 +44,9 @@ export default function TimelineContainer({ className, timeline }) {
     ]
 
 
-    const timelineEvents = timeline.filter((item => (item.properties?.Date?.date?.start && item.properties?.Date?.date?.end))).map((item, id) => {
+    const timelineEvents = articles.filter((item => (item.properties?.Date?.date?.start))).map((item, id) => {
         const start = dateToMillis(item.properties.Date.date.start);
-        const end = dateToMillis(item.properties.Date.date.end);
+        const end = item.properties?.Date?.date?.end ? dateToMillis(item.properties.Date.date.end) : start + 1000 * 60 * 60 * 24 * 365;
 
         return (
             {
@@ -58,9 +59,6 @@ export default function TimelineContainer({ className, timeline }) {
  
         )
     })
-
-    console.log(timelineEvents);
-    console.log(events);
 
 
     return(

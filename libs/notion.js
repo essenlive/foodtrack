@@ -1,8 +1,6 @@
 import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN, }); 
-const databases = JSON.parse(process.env.DATABASES);
-
 
 export const getDatabase = async (databaseId, filter, sort) => {
   const response = await notion.databases.query({
@@ -51,11 +49,11 @@ export const getContent = async (blockId) => {
           (x) => x.id === block.id
         )?.children;
       }
-      if (block.type === "child_database") {
-        const database = databases.filter((database) => (database.name === block[block.type].title))[0]
-        if (!database) return ({})
-        block[block.type].blocks = await getDatabase(database.id, database.filter, database.sort);
-      }
+      // if (block.type === "child_database") {
+      //   const database = databases.filter((database) => (database.name === block[block.type].title))[0]
+      //   if (!database) return ({})
+      //   block[block.type].blocks = await getDatabase(database.id, database.filter, database.sort);
+      // }
       return block;
     })
   );

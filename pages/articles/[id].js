@@ -4,9 +4,13 @@ import Link from "next/link";
 import Layout from "@components/Layout";
 import styles from "@styles/article.module.css";
 import classNames from "classnames";
-import { FiArrowLeft } from "react-icons/fi";
+import { VscChromeClose } from "react-icons/vsc";
+import { useArticle } from "@libs/states"
 
-export default function Articles({ page, blocks, timeline, className }) {
+export default function Articles({ page, blocks, articles, className }) {
+  let setArticleActive = useArticle((state) => state.setArticleActive);
+  setArticleActive()
+
   if(!page)return(<div/>)
   let date = null
   if (!!page.properties?.Date?.date?.start) {
@@ -25,11 +29,11 @@ export default function Articles({ page, blocks, timeline, className }) {
         menuActive: true,
         articleActive: true
       }}
-      timeline={timeline}
+      articles={articles}
     >
       <Link href={`/`} >
         <div className={styles.back}>
-          <FiArrowLeft />
+          <VscChromeClose />
         </div>
       </Link>
       <div className={classNames(className, styles.article)}>
@@ -78,13 +82,13 @@ export const getStaticProps = async (context) => {
   const { id } = context.params;
   const page = await getPage(id);
   const blocksWithChildren = await getContent(id); 
-  const timeline = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
+  const articles = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
 
   return {
     props: {
       page,
       blocks: blocksWithChildren,
-      timeline
+      articles
     },
     revalidate: 1,
   };
