@@ -9,14 +9,8 @@ import { useNavigation, useArticle, useFilters } from '@libs/states.js'
 export default function Layout({ page, children, articles }) {
     let { navigationState } = useNavigation((state) => state)
     let { articleState } = useArticle((state) => state)
-    
     let { filters } = useFilters((state) => state)
     
-    console.log({articles});
-
-    console.log('there is a filter type', filters.Type);
-    console.log('there is a filter phase', filters.Phase);
-    console.log('there is a filter aliment', filters.Aliment);
     let filteredArticles = articles.filter((article)=>{
         let rightType = false;
         let rightPhase = false;
@@ -92,7 +86,7 @@ export default function Layout({ page, children, articles }) {
                 className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState }) }
             />
             <Resources
-                className={styles.timeline}
+                className={styles.resources}
                 articles={filteredArticles}
                 />
                 
