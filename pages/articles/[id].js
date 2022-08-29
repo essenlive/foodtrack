@@ -69,9 +69,7 @@ export default function Articles({ page, blocks, articles, className }) {
 }
 
 export const getStaticPaths = async () => {
-  let database = JSON.parse(process.env.DATABASES).filter((database) => (database.name === "articles"))[0];
-  database = await getDatabase(database.id, database.filter, database.sort);
-
+  const database = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
   return {
     paths: database.map((page) => ({ params: { id: page.id } })),
     fallback: true,

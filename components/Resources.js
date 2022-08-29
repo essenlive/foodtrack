@@ -31,7 +31,7 @@ export default function Resources({className, articles}) {
                             title={RenderPlainText(item.properties.Name.title)}
                             description={date}
                             tags={item.properties.Aliment.multi_select.map(el => el.name)}
-                            colorMap={item.properties.Aliment.multi_select.map(el => el.color)}
+                            colorMap={item.properties.Aliment.multi_select.map(el => "var(--gray-200")}
                             link={{
                                 path: `/articles/${item.id}`,
                                 text: "Lire l'article"

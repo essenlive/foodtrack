@@ -19,7 +19,7 @@ const Card = ({ id, title, description, tags, colorMap, link, image }) => {
                         <h3 className={styles.title}>{title}</h3>
                     }
                     {tags &&
-                        <Tags tags={tags} colorMap={colorMap} className={styles.tags} />
+                        <Tags tags={tags} colorMap={colorMap} className={styles.tags} dark={true} />
                     }
                     {description &&
                         <p className={styles.description}>{description}</p>

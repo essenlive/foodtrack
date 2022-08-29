@@ -112,33 +112,33 @@ export const RenderBlock = ({block}) => {
         case "child_database":
             const items = value.blocks;
             if(!items) return("")
-            return (
-            <ul className={styles.items}>
-                    {items.map((item) => {
+            return (""
+            // <ul className={styles.items}>
+            //         {items.map((item) => {
 
-                    let date = null
-                    if (!!item.properties?.Date?.date?.start) date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
+            //         let date = null
+            //         if (!!item.properties?.Date?.date?.start) date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
 
-                    let src = null;
-                    if ( !!item?.cover ) src = item?.cover?.type === "external" ? item.cover.external.url : item.cover.file.url;
+            //         let src = null;
+            //         if ( !!item?.cover ) src = item?.cover?.type === "external" ? item.cover.external.url : item.cover.file.url;
                     
-                    return (
-                        <Card
-                            id = {item.id}
-                            title={RenderPlainText(item.properties.Name.title)}
-                            description={date}
-                            tags={item.properties.Aliment.multi_select.map(el => el.name)}
-                            colorMap={item.properties.Aliment.multi_select.map(el => el.color)}
-                            link={{
-                                path: `/${value.title}/${item.id}`,
-                                text: "Lire l'article"
-                            }} 
-                            image={src ? { src: src } : null}
+            //         return (
+            //             <Card
+            //                 id = {item.id}
+            //                 title={RenderPlainText(item.properties.Name.title)}
+            //                 description={date}
+            //                 tags={item.properties.Aliment.multi_select.map(el => el.name)}
+            //                 colorMap={item.properties.Aliment.multi_select.map(el => el.color)}
+            //                 link={{
+            //                     path: `/${value.title}/${item.id}`,
+            //                     text: "Lire l'article"
+            //                 }} 
+            //                 image={src ? { src: src } : null}
 
-                        />
-                    )
-                })}
-            </ul>
+            //             />
+            //         )
+            //     })}
+            // </ul>
             );
         default:
             console.log(`❌ Unsupported block (${type === "unsupported" ? "unsupported by Notion API" : type
