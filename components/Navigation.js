@@ -8,14 +8,12 @@ import { useNavigation, useFilters } from '@libs/states.js'
 
 
 export default function Navigation({className}) {
-    let { navigationState, toggleNavigation } = useNavigation((state) => state)
+    let { navigationState, setNavigationState } = useNavigation((state) => state)
     let { filters, setFilters } = useFilters((state) => state)
-    
-    console.log(filters);
     return(
         <header className={classNames(className, styles.header, { [`${styles.navigationActive}`]: navigationState })}>
         
-        <div onClick={toggleNavigation} className={styles.collapse}>{navigationState ? <VscArrowLeft /> : <VscArrowRight /> }</div>
+            <div onClick={() => { setNavigationState(navigationState === "home" ? "explore" : "home")}} className={styles.collapse}>{navigationState === "home" ? <VscArrowLeft /> : <VscArrowRight /> }</div>
         <div className={styles.logo}>
         <Link href={`/`} >
         <h1 className={styles.title}>Foodtrack </h1>

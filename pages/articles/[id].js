@@ -5,11 +5,11 @@ import Layout from "@components/Layout";
 import styles from "@styles/article.module.css";
 import classNames from "classnames";
 import { VscChromeClose } from "react-icons/vsc";
-import { useArticle } from "@libs/states"
+import { useNavigation } from "@libs/states"
 
 export default function Articles({ page, blocks, articles, className }) {
-  let setArticleActive = useArticle((state) => state.setArticleActive);
-  setArticleActive()
+  let setNavigationRead = useNavigation((state) => state.setNavigationRead);
+  setNavigationRead()
 
   if(!page)return(<div/>)
   let date = null

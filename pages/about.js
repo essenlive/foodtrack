@@ -5,12 +5,11 @@ import styles from "@styles/about.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
-import { useArticle } from "@libs/states";
+import { useNavigation } from "@libs/states";
 
 export default function Home({ page, blocks, articles, className }) {
-
-  let setArticleInactive = useArticle((state) => state.setArticleInactive);
-  setArticleInactive()
+  let setNavigationRead = useNavigation((state) => state.setNavigationRead);
+  setNavigationRead()
 
   return (
     <Layout 

@@ -1,15 +1,18 @@
 import styles from "@styles/layout.module.css";
 import Head from "next/head";
 import Navigation from "@components/Navigation";
-import Resources from "@components/Resources";
+import Articles from "@components/Articles";
 import classNames from "classnames";
 import { useNavigation, useArticle, useFilters } from '@libs/states.js'
+import dynamic from "next/dynamic";
+const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
 
 
 export default function Layout({ page, children, articles }) {
     let { navigationState } = useNavigation((state) => state)
-    let { articleState } = useArticle((state) => state)
+    console.log(navigationState);
     let { filters } = useFilters((state) => state)
+
     
     let filteredArticles = articles.filter((article)=>{
         let rightType = false;
@@ -83,16 +86,22 @@ export default function Layout({ page, children, articles }) {
             }
             </Head>
             <Navigation 
-                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState }) }
+                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState === "home" }) }
             />
-            <Resources
-                className={styles.resources}
+
+            <TimelineContainer
+                className={classNames(styles.timeline)}
                 articles={filteredArticles}
-                />
+            />
+
+            <Articles
+                className={classNames(styles.articles, { [`${styles.articlesActive}`]: navigationState === "explore" })}
+                articles={filteredArticles}
+            />
                 
-            <article className={classNames(styles.article, { [`${styles.articleActive}`]: articleState })}>
+            <aside className={classNames(styles.aside, { [`${styles.asideActive}`]: navigationState === "read" })}>
                 {children}
-            </article>
+            </aside>
         </main>
     );
 }

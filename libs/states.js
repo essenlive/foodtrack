@@ -1,7 +1,4 @@
 import create from 'zustand'
-import { getDatabase } from '@libs/notion'
-
-
 
 export const useSelection = create((set) => ({
     selection: null,
@@ -18,10 +15,11 @@ export const useFilters = create((set) => ({
 }))
 
 export const useNavigation = create((set) => ({
-    navigationState: true,
-    setNavigationActive: () => set((state) => ({ navigationState: false })),
-    setNavigationInactive: () => set((state) => ({ navigationState: false })),
-    toggleNavigation: () => set((state) => ({ navigationState: !state.navigationState })),
+    navigationState: "home",
+    setNavigationState: (navigation) => set((state) => ({ navigationState : navigation })),
+    setNavigationHome: () => set((state) => ({ navigationState: "home" })),
+    setNavigationExplore: () => set((state) => ({ navigationState: "explore" })),
+    setNavigationRead: () => set((state) => ({ navigationState: "read" })),
 }))
 export const useArticle = create((set) => ({
     articleState: false,

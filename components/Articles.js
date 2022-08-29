@@ -1,24 +1,19 @@
-import styles from "@styles/resources.module.css";
+import styles from "@styles/articles.module.css";
 import classNames from "classnames";
 import { RenderPlainText } from "@components/RenderBlock";
 import Card from "@components/Card";
-import dynamic from "next/dynamic";
-const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
 
-export default function Resources({className, articles}) {
+export default function Articles({className, articles}) {
 
     return(
-        <div className={classNames(className, styles.resources)}>
-            <TimelineContainer articles={articles} className={styles.timeline}/>
-
-            <ul className={styles.articles}>
+        <ul className={classNames(className, styles.resources)}>
 
                 {articles.map((item, id) => {
                     let date = null
-                    if ( !!item.properties?.Date?.date?.start){
+                    if (!!item.properties?.Date?.date?.start) {
                         date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
                     }
-                        
+
 
                     let src = null;
                     if (!!item?.cover) {
@@ -42,6 +37,5 @@ export default function Resources({className, articles}) {
                     )
                 })}
             </ul>
-        </div>
         )
 }
