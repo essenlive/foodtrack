@@ -27,11 +27,11 @@ export default function Navigation({className}) {
         Découvrir 
         <select className={styles.select} id="Type" name="Type" onChange={(e) => setFilters({ Type: e.target.value === "null" ? null : e.target.value })}>
         <option value="null">les élements</option>
-        <option value="Portrait">les personnes</option>
+        <option value=" Portrait">les personnes</option>
         <option value="Évenement">les évenements</option>
         <option value="Outil/Pratique">les méthodes</option>
         </select>
-        qui ont marqués 
+        qui ont marqué 
         <select className={styles.select} id="Phase" name="Phase" onChange={(e) => setFilters({ Phase: e.target.value === "null" ? null : e.target.value })}>
         <option value="null">les différentes phases</option>
         <option value="Origine">l'origine</option>
