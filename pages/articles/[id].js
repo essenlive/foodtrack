@@ -16,7 +16,6 @@ export default function Article({ page, blocks, articles, className }) {
   let createFilters = useFilters((state) => state.createFilters);
   createFilters(articles)
 
-  console.log(page);
 
   if (!page) return (<div />)
   let date = null
