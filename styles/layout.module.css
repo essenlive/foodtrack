@@ -24,13 +24,8 @@
 
 .articles {
   width: 20%;
-  background-color: var(--amber-100);
+  background: var(--white);
   overflow-y: scroll;
-  list-style: none;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  padding: 1rem;
   border-left: var(--black) var(--borderWidth) solid;
 }
 .articlesActive{

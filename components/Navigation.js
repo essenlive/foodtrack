@@ -10,6 +10,7 @@ import { useNavigation, useFilters } from '@libs/states.js'
 export default function Navigation({className}) {
     let { navigationState, setNavigationState } = useNavigation((state) => state)
     let { filters, setFilters } = useFilters((state) => state)
+
     return(
         <header className={classNames(className, styles.header, { [`${styles.navigationActive}`]: navigationState })}>
         
@@ -22,29 +23,22 @@ export default function Navigation({className}) {
         
         </div>
         <div className={styles.filters}>
-        Découvrir 
-        <select className={styles.select} id="Type" name="Type" onChange={(e) => setFilters({ Type: e.target.value === "null" ? null : e.target.value })}>
-        <option value="null">les élements</option>
-        <option value=" Portrait">les personnes</option>
-        <option value="Évenement">les évenements</option>
-        <option value="Outil/Pratique">les méthodes</option>
-        </select>
-        qui ont marqué 
-        <select className={styles.select} id="Phase" name="Phase" onChange={(e) => setFilters({ Phase: e.target.value === "null" ? null : e.target.value })}>
-        <option value="null">les différentes phases</option>
-        <option value="Origine">l'origine</option>
-        <option value="Climax" selected>le climax</option>
-        <option value="Rupture">la rupture</option>
-        <option value="Redécouverte">la redécouverte</option>
-        </select>
-        <select className={styles.select} id="Aliment" name="Aliment" onChange={(e) => setFilters({ Aliment: e.target.value === "null" ? null : e.target.value })}>
-        <option value="null">de l'alimentation</option>
-        <option value="Fraise" selected>de la fraise</option>
-        <option value="Légumes">des légumes</option>
-        <option value="Champignon">des champignons</option>
-        <option value="Pêche">des pêches</option>
-        </select> en Île-de-France.
+            <span>Découvrir </span>
+            <select className={styles.select} id="Type" name="Type" onChange={(e) => setFilters({ Type: e.target.value === "null" ? null : e.target.value })}>
+            <option value="null">les élements</option>
+                {[...filters.Type].map((el=>( <option key={el} value={el}>{el}</option> )))}
+            </select>
+            <span> qui ont marqué </span>
+            <select className={styles.select} id="Phase" name="Phase" onChange={(e) => setFilters({ Phase: e.target.value === "null" ? null : e.target.value })}>
+            <option value="null">le développement</option>
+                        {[...filters.Phase].map((el => (<option key={el} value={el}>{el}</option>)))}
+            </select> 
+            <select className={styles.select} id="Aliment" name="Aliment" onChange={(e) => setFilters({ Aliment: e.target.value === "null" ? null : e.target.value })}>
+            <option value="null">des aliments</option>
+                        {[...filters.Aliment].map((el => (<option key={el} value={el}>{el}</option>)))}
+            </select> en Île-de-France.
         </div>
+
         <div className={styles.socials}>
         <Link href={`/about`} >
         <a className="link">À propos</a>

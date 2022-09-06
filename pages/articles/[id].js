@@ -5,19 +5,22 @@ import Layout from "@components/Layout";
 import styles from "@styles/article.module.css";
 import classNames from "classnames";
 import { VscChromeClose } from "react-icons/vsc";
-import { useNavigation } from "@libs/states"
+import { useNavigation, useFilters } from "@libs/states";
+import Tags from "@components/Tags";
+import Articles from "@components/Articles";
 
-export default function Articles({ page, blocks, articles, className }) {
+export default function Article({ page, blocks, articles, className }) {
   let setNavigationRead = useNavigation((state) => state.setNavigationRead);
   setNavigationRead()
 
-  if(!page)return(<div/>)
+  let createFilters = useFilters((state) => state.createFilters);
+  createFilters(articles)
+
+
+  if (!page) return (<div />)
   let date = null
   if (!!page.properties?.Date?.date?.start) {
-    date = new Date(page.properties.Date.date.start).toLocaleString("fr-FR", { 
-      month: "short", 
-      year: "numeric" 
-    });
+    date = new Date(page.properties.Date.date.start).toLocaleString("fr-FR", { year: "numeric" });
   };
 
 
@@ -38,30 +41,45 @@ export default function Articles({ page, blocks, articles, className }) {
       </Link>
       <div className={classNames(className, styles.article)}>
 
-      {page.cover &&
+        {page.cover &&
 
-        <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
-        page.cover.file.url} alt=""/>
-      }
-      <div className={styles.infos}>
-        
-      {page.page_title &&
-        <h2 className={styles.title}>
-          {page?.icon && page?.icon?.emoji} <RenderText text={page.page_title} />
-        </h2>
+          <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
+            page.cover.file.url} alt="" />
         }
+        <div className={styles.infos}>
 
-      {date && 
-        <div className={styles.date}>
-          {date}
+          {page.page_title &&
+            <h2 className={styles.title}>
+              {page?.icon && page?.icon?.emoji} <RenderText text={page.page_title} />
+            </h2>
+          }
+
+          {date &&
+            <div className={styles.date}>
+              {date}
+            </div>
+          }
+          {page.properties?.Phase &&
+            <h4 className={styles.subtitle}> {page.properties?.Phase.select.name}</h4>
+          }
+          {page.properties?.Aliment &&
+            <Tags 
+              tags={page.properties.Aliment.multi_select.map(el => el.name)}
+               colorMap={page.properties.Aliment.multi_select.map(el => "var(--gray-200")}
+              className={styles.tags} dark={true} />
+          }
+
         </div>
+        <div className={styles.content}>
+
+          {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+        </div>
+        {page.properties?.Relations && 
+          <div className={styles.related}>
+            <h3>Articles liés</h3>
+            <Articles articles={page.properties?.Relations?.relation}/>
+          </div>
         }
-        
-      </div>
-      <div className={styles.content}>
-
-        {blocks.map((block) => (<RenderBlock block={block} key={block.id}/>))}
-        </div>
       </div>
 
     </Layout>
@@ -79,9 +97,14 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const { id } = context.params;
   const page = await getPage(id);
-  const blocksWithChildren = await getContent(id); 
+  const blocksWithChildren = await getContent(id);
+  
+  // Get related pages information
+  if (page.properties?.Relations?.relation){
+    page.properties.Relations.relation = await Promise.all(page.properties?.Relations.relation.map(async relation => await getPage(relation.id)))
+  }
+  
   const articles = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
-
   return {
     props: {
       page,

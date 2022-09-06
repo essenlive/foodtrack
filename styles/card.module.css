@@ -2,48 +2,37 @@
   border: var(--black) var(--borderWidth) solid;
   background: var(--white);
   position: relative;
-  min-height: 300px;
+  /* min-height: 300px; */
   width: 100%;
-}
-
-.card>div:nth-child(2) {
-  opacity: 0;
-}
-
-.card:hover>div:nth-child(2) {
-  opacity: 100;
-}
-
-.verso {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  /* cursor: pointer; */
   display: flex;
   background: var(--white);
   flex-direction: column;
   align-content: center;
-  transition: all 0.25s ease-in-out;
-  overflow: auto;
+  transition: transform 100ms ease-in-out;
+}
+.card:hover{
+  transform: translateY(-1px);
+  box-shadow: 0px 1px 0px 0px rgba(0,0,0,1);
 }
 
 .title {
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--black);
   width: auto;
-  font-size: var(--font-sm);
+  font-size: var(--fontSize-lg);
 }
-.title, .link, .description, .tags {
+.title, .link, .subtitle, .description, .tags {
   padding: 0.5rem 1rem 0;
   margin-top: 0;
 }
 
-.title:first-child, .link:first-child, .description:first-child {
+.title:first-child, .link:first-child {
   max-width: 70%;
+  margin-top: 0.5rem;
 }
 
-.title:last-child, .link:last-child, .description:last-child {
+.card > div:last-child {
   padding-bottom: 1rem;
 }
 
@@ -62,7 +51,7 @@
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
-  font-size: var(--fontSize-xs);
+  font-size: var(--fontSize-sm);
   text-overflow: ellipsis;
   border: var(--black) var(--borderWidth) solid;
   white-space: nowrap;
@@ -71,5 +60,13 @@
 .image {
   object-fit: cover;
   border-bottom: var(--primary) var(--borderWidth) solid;
-  max-height: 40%;
+  max-height: 250px;
+  flex-grow: 1;
+}
+
+.subtitle{
+  text-transform: capitalize;
+  color: var(--black);
+  width: auto;
+  font-size: var(--font-sm);
 }

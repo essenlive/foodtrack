@@ -3,11 +3,10 @@ import Link from 'next/link'
 import styles from "@styles/card.module.css";
 import classNames from 'classnames';
 
-const Card = ({ id, title, description, tags, colorMap, link, image }) => {
+const Card = ({ id, title, description, subtitle, tags, colorMap, link, image }) => {
+
     return (
         <div key={id} className={styles.card}>
-            {/* <Link href={{ pathname: link.path }}> */}
-                <div className={styles.verso}>
                     {image && image.src &&
                         <img
                             className={styles.image}
@@ -18,21 +17,23 @@ const Card = ({ id, title, description, tags, colorMap, link, image }) => {
                     {title &&
                         <h3 className={styles.title}>{title}</h3>
                     }
-                    {tags &&
-                        <Tags tags={tags} colorMap={colorMap} className={styles.tags} dark={true} />
+                    {subtitle &&
+                        <h4 className={styles.subtitle}> {subtitle}</h4>
                     }
                     {description &&
                         <p className={styles.description}>{description}</p>
                     }
-                    {link &&
-                        <Link href={{ pathname: link.path }}>
-                            <p className={styles.link}>
-                            <span className='link'>{link.text}</span>
-                                </p>
-                        </Link>
+                    {tags &&
+                        <Tags tags={tags} colorMap={colorMap} className={styles.tags} dark={true} />
                     }
-                </div>
-            {/* </Link>  */}
+                        {link &&
+                            <Link href={{ pathname: link.path }}>
+                                <p className={styles.link}>
+                                <span className='link'>{link.text}</span>
+                                    </p>
+                            </Link>
+                        }
+
         </div>
     );
 }

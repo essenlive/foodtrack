@@ -44,26 +44,26 @@ export default function TimelineContainer({ className, articles }) {
     ]
 
 
-    const timelineEvents = articles.filter((item => (item.properties?.Date?.date?.start))).map((item, id) => {
-        const start = dateToMillis(item.properties.Date.date.start);
-        const end = item.properties?.Date?.date?.end ? dateToMillis(item.properties.Date.date.end) : start + 1000 * 60 * 60 * 24 * 365;
+    // const timelineEvents = articles.filter((item => (item.properties?.Date?.date?.start))).map((item, id) => {
+    //     const start = dateToMillis(item.properties.Date.date.start);
+    //     const end = item.properties?.Date?.date?.end ? dateToMillis(item.properties.Date.date.end) : start + 1000 * 60 * 60 * 24 * 365;
 
-        return (
-            {
-                eventId: id,
-                tooltip: RenderPlainText(item.properties.Name.title),
-                laneId: "peach",
-                startTimeMillis: end,
-                endTimeMillis: start
-            }
+    //     return (
+    //         {
+    //             eventId: id,
+    //             tooltip: RenderPlainText(item.properties.Name.title),
+    //             laneId: "peach",
+    //             startTimeMillis: end,
+    //             endTimeMillis: start
+    //         }
  
-        )
-    })
+    //     )
+    // })
 
 
     return(
         <ul className={className}>
-            <Timeline width={300} height={300} events={timelineEvents} lanes={lanes} dateFormat={dateFormat} />
+            <Timeline width={300} height={300} events={events} lanes={lanes} dateFormat={dateFormat} />
         </ul>
         )
 

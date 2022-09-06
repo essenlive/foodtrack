@@ -1,6 +1,5 @@
 import styles from "@styles/blocks.module.css";
 import Link from "next/link";
-import Card from "@components/Card";
 
 export const RenderPlainText = (text) => {
     if (!text) return null;
@@ -65,6 +64,12 @@ export const RenderBlock = ({block}) => {
                 <h3>
                     <RenderText text={value.text} />
                 </h3>
+            );
+        case "quote":
+            return (
+                <blockquote>
+                    <RenderText text={value.text} />
+                </blockquote>
             );
         case "bulleted_list_item":
         case "numbered_list_item":

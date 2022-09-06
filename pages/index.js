@@ -1,10 +1,15 @@
 import { getContent, getDatabase, getPage } from "@libs/notion";
 import Layout from "@components/Layout";
-import { useNavigation } from "@libs/states"
+import { useNavigation, useFilters } from "@libs/states"
 
 export default function Home({ page, articles }) {
   let setNavigationHome = useNavigation((state) => state.setNavigationHome);
   setNavigationHome()
+  
+  let createFilters = useFilters((state) => state.createFilters);
+  createFilters(articles)
+
+  
 
   return (
     <Layout 

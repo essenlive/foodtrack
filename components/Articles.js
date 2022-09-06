@@ -6,12 +6,12 @@ import Card from "@components/Card";
 export default function Articles({className, articles}) {
 
     return(
-        <ul className={classNames(className, styles.resources)}>
+        <ul className={classNames(className, styles.articles)}>
 
                 {articles.map((item, id) => {
                     let date = null
                     if (!!item.properties?.Date?.date?.start) {
-                        date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { month: "short", year: "numeric" });
+                        date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { year: "numeric" });
                     }
 
 
@@ -23,8 +23,9 @@ export default function Articles({className, articles}) {
                         <Card
                             id={id}
                             key={id}
-                            title={RenderPlainText(item.properties.Name.title)}
+                            title={`${ item?.icon && item?.icon?.emoji} ${RenderPlainText(item.properties.Name.title)}`}
                             description={date}
+                            subtitle={item.properties.Phase?.select?.name }
                             tags={item.properties.Aliment.multi_select.map(el => el.name)}
                             colorMap={item.properties.Aliment.multi_select.map(el => "var(--gray-200")}
                             link={{

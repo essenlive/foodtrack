@@ -5,11 +5,14 @@ import styles from "@styles/about.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
-import { useNavigation } from "@libs/states";
+import { useNavigation, useFilters } from "@libs/states";
 
 export default function Home({ page, blocks, articles, className }) {
   let setNavigationRead = useNavigation((state) => state.setNavigationRead);
   setNavigationRead()
+
+  let createFilters = useFilters((state) => state.createFilters);
+  createFilters(articles)
 
   return (
     <Layout 

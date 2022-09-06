@@ -8,6 +8,12 @@ html, body {
   color: var(--font-color);
   font-size: var(--fontSize-base);
   background: var(--bg-color);
+  line-height: 1.4;
+}
+p, li, blockquote {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
 }
 
 li {
@@ -24,6 +30,16 @@ li:before {
   height: 1px;
   width: 0.5rem;
   background-color: var(--font-color);
+}
+hr{
+  border-top: 1px;
+}
+
+
+blockquote{
+  padding: 1rem 0 1rem 1rem;
+  border-left: var(--black) solid var(--borderWidth);
+  font-style: italic;
 }
 
 .link {

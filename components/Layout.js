@@ -3,36 +3,32 @@ import Head from "next/head";
 import Navigation from "@components/Navigation";
 import Articles from "@components/Articles";
 import classNames from "classnames";
-import { useNavigation, useArticle, useFilters } from '@libs/states.js'
+import { useNavigation, useFilters } from '@libs/states.js'
 import dynamic from "next/dynamic";
 const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
 
 
 export default function Layout({ page, children, articles }) {
     let { navigationState } = useNavigation((state) => state)
-    console.log(navigationState);
-    let { filters } = useFilters((state) => state)
-
+    let { activeFilters } = useFilters((state) => state)
     
     let filteredArticles = articles.filter((article)=>{
         let rightType = false;
         let rightPhase = false;
         let rightAliment = false;
-        if (filters.Type !== null) {
-            if (article.properties.Type?.select?.name === filters.Type) rightType = true
+        if (activeFilters.Type !== null) {
+            if (article.properties.Type?.select?.name === activeFilters.Type) rightType = true
         }else{rightType = true}
-        if (filters.Phase !== null){
-            if (article.properties.Phase?.select?.name === filters.Phase) rightPhase = true;
+        if (activeFilters.Phase !== null){
+            if (article.properties.Phase?.select?.name === activeFilters.Phase) rightPhase = true;
         } else { rightPhase = true }
-        if (filters.Aliment !== null) {
+        if (activeFilters.Aliment !== null) {
             if (article.properties.Aliment){
-                console.log(article.properties.Aliment.multi_select);
                 article.properties.Aliment.multi_select.forEach(element => {
-                    if (element.name === filters.Aliment) rightAliment = true
+                    if (element.name === activeFilters.Aliment) rightAliment = true
                 });
             } 
         } else { rightAliment = true }
-        console.log(rightType, rightPhase, rightAliment);
         return (rightType && rightPhase && rightAliment)
     }) ;
 
@@ -79,14 +75,12 @@ export default function Layout({ page, children, articles }) {
             {page?.icon?.emoji ?
                 <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${page.icon.emoji}</text></svg>`}></link>
                 :
-                <>
-                    <link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
-                    <link rel='icon' type='image/png' sizes='16x16' href='/icons/favicon-16x16.png' />
-                </>
+                <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪴</text></svg>`}></link>
             }
             </Head>
             <Navigation 
                 className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState === "home" }) }
+
             />
 
             <TimelineContainer
