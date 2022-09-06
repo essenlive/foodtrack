@@ -16,6 +16,7 @@ export default function Article({ page, blocks, articles, className }) {
   let createFilters = useFilters((state) => state.createFilters);
   createFilters(articles)
 
+  console.log(page);
 
   if (!page) return (<div />)
   let date = null
@@ -59,7 +60,7 @@ export default function Article({ page, blocks, articles, className }) {
               {date}
             </div>
           }
-          {page.properties?.Phase &&
+          {page.properties?.Phase?.select?.name &&
             <h4 className={styles.subtitle}> {page.properties?.Phase.select.name}</h4>
           }
           {page.properties?.Aliment &&
@@ -74,7 +75,7 @@ export default function Article({ page, blocks, articles, className }) {
 
           {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
         </div>
-        {page.properties?.Relations && 
+        {page.properties?.Relations.relation.length > 0 && 
           <div className={styles.related}>
             <h3>Articles liés</h3>
             <Articles articles={page.properties?.Relations?.relation}/>

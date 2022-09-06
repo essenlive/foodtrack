@@ -23,7 +23,7 @@ export default function Articles({className, articles}) {
                         <Card
                             id={id}
                             key={id}
-                            title={`${ item?.icon && item?.icon?.emoji} ${RenderPlainText(item.properties.Name.title)}`}
+                            title={`${item?.icon?.emoji ? item?.icon?.emoji : ""} ${RenderPlainText(item.properties.Name.title)}`}
                             description={date}
                             subtitle={item.properties.Phase?.select?.name }
                             tags={item.properties.Aliment.multi_select.map(el => el.name)}
