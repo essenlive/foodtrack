@@ -29,7 +29,7 @@ export default function Articles({className, articles}) {
                             tags={item.properties.Aliment.multi_select.map(el => el.name)}
                             colorMap={item.properties.Aliment.multi_select.map(el => "var(--gray-200")}
                             link={{
-                                path: `/articles/${item.id}`,
+                                path: `/${item.id}`,
                                 text: "Lire l'article"
                             }}
                             image={src ? { src: src } : null}

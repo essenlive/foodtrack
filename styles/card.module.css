@@ -2,7 +2,7 @@
   border: var(--black) var(--borderWidth) solid;
   background: var(--white);
   position: relative;
-  /* min-height: 300px; */
+  max-height: 400px;
   width: 100%;
   /* cursor: pointer; */
   display: flex;
@@ -60,7 +60,7 @@
 .image {
   object-fit: cover;
   border-bottom: var(--primary) var(--borderWidth) solid;
-  max-height: 250px;
+  max-height: 200px;
   flex-grow: 1;
 }
 

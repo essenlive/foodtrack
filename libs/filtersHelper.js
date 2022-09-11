@@ -37,3 +37,7 @@ export function getUniqueProperties(articles, propertyName) {
     properties = properties.flat().filter(el => !!el);
     return new Set(properties)
 }
+
+export function validatedArticles(articles){
+    return articles.filter((article) => article.properties["Validée"].checkbox)
+}

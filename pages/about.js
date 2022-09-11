@@ -6,14 +6,15 @@ import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
 import { useNavigation } from "@libs/states";
-import { useEffect } from "react";
+// import { useEffect } from "react";
+import { validatedArticles } from "@libs/filtersHelper";
 
 export default function Home({ page, blocks, articles, className }) {
-  let { setNavigationAside, setNavigationMenu } = useNavigation((state) => state);
-  useEffect(() => {
-    setNavigationMenu(false)
-    setNavigationAside(true)
-  });
+  let setNavigationAside = useNavigation((state) => state.setNavigationAside);
+  setNavigationAside(true)
+  // useEffect(() => {
+  //   setNavigationMenu(false)
+  // });
 
 
   return (
@@ -60,7 +61,8 @@ export const getStaticProps = async () => {
   const aboutpageId = "28a70d4c59f54a84b57ae18abd4552e2";
   const page = await getPage(aboutpageId);
   const pageContent = await getContent(aboutpageId);
-  const articles = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
+
+  const articles = validatedArticles(await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8"))
 
   return {
     props: {
