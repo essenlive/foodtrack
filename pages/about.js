@@ -5,14 +5,16 @@ import styles from "@styles/about.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
-import { useNavigation, useFilters } from "@libs/states";
+import { useNavigation } from "@libs/states";
+import { useEffect } from "react";
 
 export default function Home({ page, blocks, articles, className }) {
-  let setNavigationRead = useNavigation((state) => state.setNavigationRead);
-  setNavigationRead()
+  let { setNavigationAside, setNavigationMenu } = useNavigation((state) => state);
+  useEffect(() => {
+    setNavigationMenu(false)
+    setNavigationAside(true)
+  });
 
-  let createFilters = useFilters((state) => state.createFilters);
-  createFilters(articles)
 
   return (
     <Layout 
@@ -20,7 +22,7 @@ export default function Home({ page, blocks, articles, className }) {
       articles={articles}
     >
       <Link href={`/`} >
-        <div className={styles.close}>
+        <div className={styles.close}onClick={() => { setNavigationAside(false) }}>
           <IoMdClose />
         </div>
       </Link>

@@ -4,33 +4,18 @@ import Navigation from "@components/Navigation";
 import Articles from "@components/Articles";
 import classNames from "classnames";
 import { useNavigation, useFilters } from '@libs/states.js'
+import {filterArticles} from "@libs/filtersHelper";
 import dynamic from "next/dynamic";
 const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
 
 
 export default function Layout({ page, children, articles }) {
-    let { navigationState } = useNavigation((state) => state)
-    let { activeFilters } = useFilters((state) => state)
-    
-    let filteredArticles = articles.filter((article)=>{
-        let rightType = false;
-        let rightPhase = false;
-        let rightAliment = false;
-        if (activeFilters.Type !== null) {
-            if (article.properties.Type?.select?.name === activeFilters.Type) rightType = true
-        }else{rightType = true}
-        if (activeFilters.Phase !== null){
-            if (article.properties.Phase?.select?.name === activeFilters.Phase) rightPhase = true;
-        } else { rightPhase = true }
-        if (activeFilters.Aliment !== null) {
-            if (article.properties.Aliment){
-                article.properties.Aliment.multi_select.forEach(element => {
-                    if (element.name === activeFilters.Aliment) rightAliment = true
-                });
-            } 
-        } else { rightAliment = true }
-        return (rightType && rightPhase && rightAliment)
-    }) ;
+    let { navigationMenuState, navigationAsideState } = useNavigation((state) => state)
+    let { activeFilters, filters, createFilters } = useFilters((state) => state)
+
+    if (!filters) createFilters(articles)
+
+    const filteredArticles = filterArticles(articles, activeFilters)
 
     return (
         <main className={styles.container}>
@@ -79,7 +64,7 @@ export default function Layout({ page, children, articles }) {
             }
             </Head>
             <Navigation 
-                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationState === "home" }) }
+                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationMenuState }) }
 
             />
 
@@ -89,11 +74,11 @@ export default function Layout({ page, children, articles }) {
             />
 
             <Articles
-                className={classNames(styles.articles, { [`${styles.articlesActive}`]: navigationState === "explore" })}
+                className={classNames(styles.articles, { [`${styles.articlesActive}`]: (!navigationMenuState && !navigationAsideState) })}
                 articles={filteredArticles}
             />
                 
-            <aside className={classNames(styles.aside, { [`${styles.asideActive}`]: navigationState === "read" })}>
+            <aside className={classNames(styles.aside, { [`${styles.asideActive}`]: navigationAsideState })}>
                 {children}
             </aside>
         </main>

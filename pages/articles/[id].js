@@ -5,16 +5,17 @@ import Layout from "@components/Layout";
 import styles from "@styles/article.module.css";
 import classNames from "classnames";
 import { VscChromeClose } from "react-icons/vsc";
-import { useNavigation, useFilters } from "@libs/states";
+import { useNavigation } from "@libs/states";
 import Tags from "@components/Tags";
 import Articles from "@components/Articles";
+import { useEffect } from "react";
 
 export default function Article({ page, blocks, articles, className }) {
-  let setNavigationRead = useNavigation((state) => state.setNavigationRead);
-  setNavigationRead()
-
-  let createFilters = useFilters((state) => state.createFilters);
-  createFilters(articles)
+  let { setNavigationAside, setNavigationMenu } = useNavigation((state) => state);
+  useEffect(() => {
+    setNavigationMenu(false)
+    setNavigationAside(true)
+  });
 
 
   if (!page) return (<div />)
@@ -28,14 +29,10 @@ export default function Article({ page, blocks, articles, className }) {
   return (
     <Layout
       page={page}
-      nav={{
-        menuActive: true,
-        articleActive: true
-      }}
       articles={articles}
     >
       <Link href={`/`} >
-        <div className={styles.back}>
+        <div className={styles.back} onClick={()=>{setNavigationAside(false)}}>
           <VscChromeClose />
         </div>
       </Link>
@@ -90,7 +87,7 @@ export const getStaticPaths = async () => {
   const database = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
   return {
     paths: database.map((page) => ({ params: { id: page.id } })),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 

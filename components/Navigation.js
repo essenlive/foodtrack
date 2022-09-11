@@ -8,13 +8,13 @@ import { useNavigation, useFilters } from '@libs/states.js'
 
 
 export default function Navigation({className}) {
-    let { navigationState, setNavigationState } = useNavigation((state) => state)
-    let { filters, setFilters } = useFilters((state) => state)
+    let { navigationMenuState, toggleNavigationMenu } = useNavigation((state) => state)
+    let { filters, activeFilters, setFilters } = useFilters((state) => state)
 
     return(
-        <header className={classNames(className, styles.header, { [`${styles.navigationActive}`]: navigationState })}>
+        <header className={classNames(className, styles.header, { [`${styles.navigationActive}`]: navigationMenuState })}>
         
-            <div onClick={() => { setNavigationState(navigationState === "home" ? "explore" : "home")}} className={styles.collapse}>{navigationState === "home" ? <VscArrowLeft /> : <VscArrowRight /> }</div>
+            <div onClick={() => { toggleNavigationMenu() }} className={styles.collapse}>{navigationMenuState ? <VscArrowLeft /> : <VscArrowRight /> }</div>
         <div className={styles.logo}>
         <Link href={`/`} >
         <h1 className={styles.title}>Foodtrack </h1>
@@ -24,18 +24,37 @@ export default function Navigation({className}) {
         </div>
         <div className={styles.filters}>
             <span>Découvrir </span>
-            <select className={styles.select} id="Type" name="Type" onChange={(e) => setFilters({ Type: e.target.value === "null" ? null : e.target.value })}>
-            <option value="null">les élements</option>
+            <select 
+                className={styles.select} 
+                id="Type" 
+                name="Type"
+                value={activeFilters.Type} 
+                onChange={(e) => setFilters({ Type: e.target.value === "all" ? "all" : e.target.value })}>
+
+                <option value="all">les élements</option>
                 {[...filters.Type].map((el=>( <option key={el} value={el}>{el}</option> )))}
             </select>
+            
             <span> qui ont marqué </span>
-            <select className={styles.select} id="Phase" name="Phase" onChange={(e) => setFilters({ Phase: e.target.value === "null" ? null : e.target.value })}>
-            <option value="null">le développement</option>
-                        {[...filters.Phase].map((el => (<option key={el} value={el}>{el}</option>)))}
+
+            <select
+                className={styles.select}
+                id="Phase"
+                name="Phase"
+                value={activeFilters.Phase}
+                onChange={(e) => setFilters({ Phase: e.target.value === "all" ? "all" : e.target.value })}>
+                <option value="all">le développement</option>
+                {[...filters.Phase].map((el => (<option key={el} value={el}>{el}</option>)))}
             </select> 
-            <select className={styles.select} id="Aliment" name="Aliment" onChange={(e) => setFilters({ Aliment: e.target.value === "null" ? null : e.target.value })}>
-            <option value="null">des aliments</option>
-                        {[...filters.Aliment].map((el => (<option key={el} value={el}>{el}</option>)))}
+    
+            <select
+                className={styles.select}   
+                id="Aliment"
+                name="Aliment"                
+                value={activeFilters.Aliment}
+                onChange={(e) => setFilters({ Aliment: e.target.value === "all" ? "all" : e.target.value })}>
+                <option value="all">des aliments</option>
+                {[...filters.Aliment].map((el => (<option key={el} value={el}>{el}</option>)))}
             </select> en Île-de-France.
         </div>
 

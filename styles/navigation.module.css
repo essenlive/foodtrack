@@ -8,6 +8,7 @@
   padding: 2rem;
   background-color: var(--secondary);
   border-right: solid var(--black) var(--borderWidth);
+  z-index: 1
 }
 .header.hidden{
   transform: translateX(-100%);

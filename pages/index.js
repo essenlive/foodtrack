@@ -1,15 +1,15 @@
 import { getContent, getDatabase, getPage } from "@libs/notion";
 import Layout from "@components/Layout";
-import { useNavigation, useFilters } from "@libs/states"
+import { useNavigation } from "@libs/states"
+import { useEffect } from "react";
 
 export default function Home({ page, articles }) {
-  let setNavigationHome = useNavigation((state) => state.setNavigationHome);
-  setNavigationHome()
-  
-  let createFilters = useFilters((state) => state.createFilters);
-  createFilters(articles)
+  let { navigationMenuState, setNavigationMenu, setNavigationAside } = useNavigation((state) => state);
 
-  
+  useEffect(() => {
+    if (navigationMenuState === null) setNavigationMenu(true)
+    setNavigationAside(false)
+  });
 
   return (
     <Layout 
