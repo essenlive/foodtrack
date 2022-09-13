@@ -31,7 +31,6 @@
 .timeline img{
   margin: 2rem;
   width: 100%;
-  height: 100%;
   object-fit: contain;
   overflow-y: scroll;
 }
