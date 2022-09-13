@@ -68,10 +68,13 @@ export default function Layout({ page, children, articles }) {
 
             />
 
-            <TimelineContainer
+            {/* <TimelineContainer
                 className={classNames(styles.timeline)}
                 articles={filteredArticles}
-            />
+            /> */}
+            <div className={classNames(styles.timeline)} >
+                <img src="/timeline.png"/>
+            </div>
 
             <Articles
                 className={classNames(styles.articles, { [`${styles.articlesActive}`]: (!navigationMenuState && !navigationAsideState) })}
