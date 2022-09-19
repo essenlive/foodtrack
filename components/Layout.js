@@ -16,6 +16,7 @@ export default function Layout({ page, children, articles }) {
     if (!filters) createFilters(articles)
 
     const filteredArticles = filterArticles(articles, activeFilters)
+    console.log(filteredArticles);
 
     return (
         <main className={styles.container}>
@@ -68,13 +69,13 @@ export default function Layout({ page, children, articles }) {
 
             />
 
-            {/* <TimelineContainer
+            <TimelineContainer
                 className={classNames(styles.timeline)}
                 articles={filteredArticles}
-            /> */}
-            <div className={classNames(styles.timeline)} >
+            />
+            {/* <div className={classNames(styles.timeline)} >
                 <img src="/timeline.png"/>
-            </div>
+            </div> */}
 
             <Articles
                 className={classNames(styles.articles, { [`${styles.articlesActive}`]: (!navigationMenuState && !navigationAsideState) })}

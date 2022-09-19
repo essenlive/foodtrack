@@ -1,4 +1,4 @@
-export function filterArticles(articles, filters) {
+export function filterArticles(articles, filters, sort = true) {
     let filteredArticles = articles.filter((article) => {
         let rightType = false;
         let rightPhase = false;
@@ -18,6 +18,18 @@ export function filterArticles(articles, filters) {
         } else { rightAliment = true }
         return (rightType && rightPhase && rightAliment)
     });
+
+    if(sort){
+        console.log("sorting");
+        filteredArticles = filteredArticles.sort((a, b) => {
+            console.log(a.properties.Date.date, b.properties.Date.date);
+            if ( a.properties.Date.date === null ) a.properties.Date.date = { start: new Date() }
+            if ( b.properties.Date.date === null ) b.properties.Date.date = { start : new Date() }
+            return (new Date(a.properties.Date.date.start)  - new Date(b.properties.Date.date.start))
+        })
+
+    }
+
     return filteredArticles
 }
 
@@ -40,4 +52,31 @@ export function getUniqueProperties(articles, propertyName) {
 
 export function validatedArticles(articles){
     return articles.filter((article) => article.properties["Validée"].checkbox)
+}
+
+export function organizeArticle(articles) {
+    articles = articles.map(article => {
+        let start = new Date();
+        let end = new Date();
+        end = new Date(end.setFullYear(end.getFullYear() + 10));
+
+        if (!!article.properties.Date.date) {
+            start = new Date(article.properties.Date.date.start);
+            end = new Date(article.properties.Date.date.start);
+            end = article.properties.Date.date.end ? new Date(article.properties.Date.date.end) : new Date(end.setFullYear(end.getFullYear() + 10));
+        }
+
+        let tracks = article.properties.Aliment.multi_select.map(aliment => aliment.name);
+
+        let phase = article.properties.Phase.select.name;
+
+        return (tracks.map(track => ({
+            start,
+            end,
+            track,
+            phase,
+            ...article
+        })))
+    })
+    return articles.flat()
 }
