@@ -1,9 +1,7 @@
-import { RenderPlainText } from "@components/RenderBlock";
 import { useD3, timePlot } from '@libs/useD3';
 import classNames from "classnames";
 import { organizeArticle } from "@libs/filtersHelper";
 import React from 'react';
-import * as d3 from 'd3';
 export default function TimelineContainer({ className, articles }) {
     
     const chartRef = useD3(
