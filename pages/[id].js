@@ -17,7 +17,7 @@ export default function Article({ page, blocks, articles, className }) {
   // useEffect(() => {
   //   setNavigationMenu(false)
   // });
-
+  console.log(page);
 
   if (!page) return (<div />)
   let date = null
@@ -85,7 +85,7 @@ export default function Article({ page, blocks, articles, className }) {
 }
 
 export const getStaticPaths = async () => {
-  const database = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8")
+  const database = validatedArticles(await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8"))
   return {
     paths: database.map((page) => ({ params: { id: page.id } })),
     fallback: 'blocking',
@@ -96,13 +96,14 @@ export const getStaticProps = async (context) => {
   const { id } = context.params;
   const page = await getPage(id);
   const blocksWithChildren = await getContent(id);
-  
+  console.log(page);
   // Get related pages information
   if (page.properties?.Relations?.relation){
     page.properties.Relations.relation = await Promise.all(page.properties?.Relations.relation.map(async relation => await getPage(relation.id)))
   }
   
   const articles = validatedArticles(await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8"))
+
   return {
     props: {
       page,
