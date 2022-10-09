@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { useNavigation, useFilters } from '@libs/states.js'
 import {filterArticles} from "@libs/filtersHelper";
 import dynamic from "next/dynamic";
-const TimelineContainer = dynamic(() => import("@components/TimelineContainer"), { ssr: false })
+const Timeline = dynamic(() => import("@components/Timeline"), { ssr: false })
 
 
 export default function Layout({ page, children, articles }) {
@@ -16,7 +16,6 @@ export default function Layout({ page, children, articles }) {
     if (!filters) createFilters(articles)
 
     const filteredArticles = filterArticles(articles, activeFilters)
-    console.log(filteredArticles);
 
     return (
         <main className={styles.container}>
@@ -69,7 +68,7 @@ export default function Layout({ page, children, articles }) {
 
             />
 
-            <TimelineContainer
+            <Timeline
                 className={classNames(styles.timeline)}
                 articles={filteredArticles}
             />

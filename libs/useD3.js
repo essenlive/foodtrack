@@ -3,27 +3,28 @@ import * as d3 from 'd3';
 
 export const useD3 = (renderChartFn, dependencies) => {
     const ref = React.useRef();
-    
     React.useEffect(() => {
-        renderChartFn(d3.select(ref.current));
+        renderChartFn(ref);
         return () => { };
     }, dependencies);
+
     return ref;
 }
 
-export function timePlot(data, svg, {
-    x = ([x]) => x, // given d in data, returns the (quantitative) value x
-    y = ([, y]) => y, // given d in data, returns the (categorical) value y
-    y2 = ([, y]) => y, // given d in data, returns the (categorical) value y
-    z = () => z, // given d in data, returns the (categorical) value z
-    r = 8, // (fixed) radius of dots, in pixels
+export function timePlot(data, ref, {
+    x = d => d.track,  // given d in data, returns the (quantitative) value x
+    y = d => d.start, // given d in data, returns the (categorical) value y
+    y2 = d => d.end, // given d in data, returns the (categorical) value y2
+    z = d => d.phase,// given d in data, returns the (categorical) value z
+    description = d => ({name : d.name}),
+    r = 10, // (fixed) radius of dots, in pixels
     yFormat, // a format specifier for the x-axis
-    marginTop = 50, // top margin, in pixels
-    marginRight = 30, // right margin, in pixels
-    marginBottom = 10, // bottom margin, in pixels
+    marginTop = 150, // top margin, in pixels
+    marginRight = 0, // right margin, in pixels
+    marginBottom = 30, // bottom margin, in pixels
     marginLeft = 30, // left margin, in pixels
-    width, // outer width, in pixels
-    height = 700, // outer height, in pixels, defaults to heuristic
+    width = ref.current.offsetWidth - 4 * 20, // outer width, in pixels
+    height = ref.current.offsetHeight * 2 - 4 * 20, // outer height, in pixels, defaults to heuristic
     xDomain, // [xmin, xmax]
     xRange, // [left, right]
     xLabel, // a label for the x-axis
@@ -35,17 +36,19 @@ export function timePlot(data, svg, {
     zDomain, // array of z-values
     colors, // color scheme
     stroke = "currentColor", // stroke of rule connecting dots
-    strokeWidth, // stroke width of rule connecting dots
-    strokeLinecap, // stroke line cap of rule connecting dots
+    strokeWidth = 10, // stroke width of rule connecting dots
+    strokeLinecap = "round", // stroke line cap of rule connecting dots
     strokeOpacity, // stroke opacity of rule connecting dots
     duration: initialDuration = 250, // duration of transition, if any
     delay: initialDelay = (_, i) => i * 10, // delay of transition, if any
 } = {}) {
+    const chart = d3.select(ref.current)
     // Compute values.
     const X = d3.map(data, x);
     const Y = d3.map(data, y);
     const Y2 = d3.map(data, y2);
     const Z = d3.map(data, z);
+    const DESC = d3.map(data, description);
     // Compute default domains, and unique them as needed.
     if (xDomain === undefined) xDomain = X;
     if (yDomain === undefined) yDomain = d3.extent(Y);
@@ -54,7 +57,7 @@ export function timePlot(data, svg, {
     zDomain = new d3.InternSet(zDomain);
 
     // Omit any data not present in the y- and z-domains.
-    const I = d3.range(Y.length).filter(i => xDomain.has(X[i]) && zDomain.has(Z[i]));
+    const IndexItems = d3.range(Y.length).filter(i => xDomain.has(X[i]) && zDomain.has(Z[i]));
     // Compute the default width.
     if (width === undefined) width = Math.ceil((xDomain.size + xPadding) * 40) + marginLeft + marginRight;
     if (xRange === undefined) xRange = [marginLeft, width - marginRight];
@@ -73,11 +76,17 @@ export function timePlot(data, svg, {
     const color = d3.scaleOrdinal(zDomain, colors);
     const yAxis = d3.axisLeft(yScale).ticks(height / 80, yFormat);
 
+    var Tooltip = chart.select("div")
+        .style("opacity", 0)
+        .style("position", "absolute")
+
+
+    const svg = chart.select("svg");
     svg.selectAll('*').remove()
     svg.attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
-        .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+        // .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
     svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)
@@ -87,46 +96,86 @@ export function timePlot(data, svg, {
             .attr("x2", height - marginTop - marginBottom)
             .attr("stroke-opacity", 0.1))
 
-    const g = svg.append("g")
-        .attr("text-anchor", "middle")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
+    // Create tracks
+    const tracks = svg.append("g")
+        .attr("class", "tracks")
+        .attr("text-anchor", "left")
+        .attr("font-family", "var(--font-body)")
+        .attr("font-size", "1rem")
         .selectAll()
-        .data(d3.group(I, i => X[i]))
+        .data(d3.group(IndexItems, i => X[i])) // defini les datas pour toutes les tracks comme une Map : track => IndexItems
         .join("g")
-        .attr("transform", ([x]) => `translate(${xScale(x)},0)`);
+        .attr("transform", ([x]) => (`translate(${xScale(x)},0)`))
+        .attr("class", "track");
 
-    g.selectAll("line")
-        .data(([, I]) => I)
+    
+    // Create g groups to place events inside
+    const eventsTracks = tracks.append("g").attr("class", "eventsTracks");
+
+    const click = function (d) {
+        console.log(DESC[this.__data__].name);
+    }
+    const show = function (d) {
+        Tooltip.style("opacity", 1)
+        d3.select(this)
+            .attr("stroke-opacity", 1)
+    }
+    const hide = function (d) {
+        Tooltip.style("opacity", 0)
+        d3.select(this)
+            .attr("stroke-opacity", 0.5)
+    }
+    const displayTooltip = function(d){
+        Tooltip
+            .html(`${DESC[this.__data__].name}`)
+            .style("left", (d3.pointer(d)[0] + 70) + "px")
+            .style("top", (d3.pointer(d)[1] - 70) + "px")
+    }
+        
+    // Create events lines
+    eventsTracks.selectAll("line")
+        .data(([, IndexItems]) => IndexItems) // Recupere les IndexItems pour chaque track
         .join("line")
         .attr("stroke", stroke)
-        .attr("stroke-width", 3)
+        .attr("stroke-width", strokeWidth * 2)
         .attr("stroke-linecap", strokeLinecap)
-        .attr("stroke-opacity", 0.8)
+        .attr("stroke-opacity", 0.5)
         .attr("stroke", i => color(Z[i]))
         .attr("y1", i => yScale(Y[i]))
-        .attr("y2", i => yScale(Y2[i]));
-
-    g.append("line")
-        .attr("stroke", "currentColor")
-        .attr("stroke-width", 2)
-        .attr("stroke-linecap", strokeLinecap)
-        .attr("stroke-opacity", 0.1)
-        .attr("y1", ([, I]) => yScale(d3.min(I, i => Y[i])))
-        .attr("y2", ([, I]) => yScale(d3.max(I, i => Y[i])));
+        .attr("y2", i => yScale(Y2[i]))
+        .attr("cursor", "pointer")
+        .on("click", click)
+        .on("mousemove", displayTooltip)
+        .on("mouseover", show)
+        .on("mouseleave", hide)
 
 
-    g.selectAll("circle")
-        .data(([el, I]) => I)
-        .join("circle")
-        .attr("cy", i => yScale(Y[i]))
-        .attr("fill", i => color(Z[i]))
-        .attr("r", r);
+    // // create a tooltip
+    // var Tooltip = svg.append("div")
+    //     .style("opacity", 1)
+    //     .attr("class", "tooltip")
+    //     .style("background-color", "red")
+    //     .style("border", "solid")
+    //     .style("border-width", "2px")
+    //     .style("border-radius", "5px")
+    //     .style("width", "50px")
+    //     .style("height", "50px")
+    //     .style("padding", "5px")
 
-    g.append("text")
-        .attr("dy", "-1em")
-        .attr("y", ([, I]) => yScale(d3.min(I, i => Y[i])) - 6)
-        // .attr("transform", ([, I]) => "rotate(-90)")
+    // var mousemove = function (d) {
+    //     Tooltip
+    //         .html("The exact value of<br>this cell is: " + d)
+    //         .style("left", (d3.mouse(this)[0] + 70) + "px")
+    //         .style("top", (d3.mouse(this)[1]) + "px")
+    // }
+
+
+
+    tracks.append("text")
+        .attr("dy", "0.25em")
+        .attr("dx", r + 4)
+        .attr("y", ([, IndexItems]) => yScale(d3.min(IndexItems, i => Y[i])))
+        .attr("transform", ([, IndexItems]) => `rotate(-90 ,0, ${yScale(d3.min(IndexItems, i => Y[i]))})`)
         .text(([y]) => y);
 
     return Object.assign(svg.node(), { color });

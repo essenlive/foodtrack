@@ -5,8 +5,8 @@ import { validatedArticles } from "@libs/filtersHelper";
 // import { useEffect } from "react";
 
 export default function Home({ page, articles }) {
-  let { navigationMenuState, setNavigationMenu, navigationAsideState } = useNavigation((state) => state);
-  if (navigationMenuState === null) setNavigationMenu(true)
+  let { navigationMenuState, setNavigationMenu, navigationAsideState, setNavigationAside } = useNavigation((state) => state);
+  if (navigationMenuState === null) setNavigationMenu(false)
   if (navigationAsideState === true) setNavigationAside(false)
 
   // useEffect(() => {

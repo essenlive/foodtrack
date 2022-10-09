@@ -20,9 +20,9 @@ export function filterArticles(articles, filters, sort = true) {
     });
 
     if(sort){
-        console.log("sorting");
+        // console.log("sorting");
         filteredArticles = filteredArticles.sort((a, b) => {
-            console.log(a.properties.Date.date, b.properties.Date.date);
+            // console.log(a.properties.Date.date, b.properties.Date.date);
             if ( a.properties.Date.date === null ) a.properties.Date.date = { start: new Date() }
             if ( b.properties.Date.date === null ) b.properties.Date.date = { start : new Date() }
             return (new Date(a.properties.Date.date.start)  - new Date(b.properties.Date.date.start))
@@ -70,11 +70,14 @@ export function organizeArticle(articles) {
 
         let phase = article.properties.Phase.select.name;
 
+        let name = article.properties.Name.title[0].plain_text;
+
         return (tracks.map(track => ({
             start,
             end,
             track,
             phase,
+            name, 
             ...article
         })))
     })
