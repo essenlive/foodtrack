@@ -3,9 +3,15 @@ import classNames from "classnames";
 import { organizeArticle } from "@libs/filtersHelper";
 import React from 'react';
 import styles from "@styles/timeline.module.css";
+import { useSelection } from '@libs/states';
+import { useRouter } from 'next/router'
 
 export default function Timeline({ className, articles }) {
-    const chartRef = useD3( (ref) => { timePlot( organizeArticle(articles),  ref) }, [articles.length]);
+    const setSelection = useSelection((state) => state.setSelection)
+    const router = useRouter()
+    const goToArticle = (id) => { router.push(`/#${id}`) }
+
+    const chartRef = useD3((ref) => { timePlot(organizeArticle(articles), ref, setSelection, goToArticle) }, [articles.length]);
 
         return (
             <div ref={chartRef} className={classNames(className, styles.timeline)}>

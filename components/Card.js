@@ -3,10 +3,10 @@ import Link from 'next/link'
 import styles from "@styles/card.module.css";
 import classNames from 'classnames';
 
-const Card = ({ id, title, description, subtitle, tags, colorMap, link, image }) => {
+const Card = ({ id, title, description, subtitle, tags, colorMap, link, image, className }) => {
 
     return (
-        <div key={id} className={styles.card}>
+        <div id={id} key={id} className={classNames(styles.card, className)}>
                     {image && image.src &&
                         <img
                             className={styles.image}

@@ -3,7 +3,7 @@ import { getUniqueProperties } from './filtersHelper'
 
 export const useSelection = create((set) => ({
     selection: null,
-    setSelection: (selection) => set(selection),
+    setSelection: (selection) => set(() =>({selection}))
 }))
 
 export const useFilters = create((set) => ({

@@ -6,7 +6,8 @@ import classNames from "classnames";
 import { useNavigation, useFilters } from '@libs/states.js'
 import {filterArticles} from "@libs/filtersHelper";
 import dynamic from "next/dynamic";
-const Timeline = dynamic(() => import("@components/Timeline"), { ssr: false })
+import Timeline from "@components/Timeline";
+// const Timeline = dynamic(() => import("@components/Timeline"), { ssr: false })
 
 
 export default function Layout({ page, children, articles }) {

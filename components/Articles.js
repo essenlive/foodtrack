@@ -2,8 +2,10 @@ import styles from "@styles/articles.module.css";
 import classNames from "classnames";
 import { RenderPlainText } from "@components/RenderBlock";
 import Card from "@components/Card";
+import { useSelection } from "@libs/states";
 
 export default function Articles({className, articles}) {
+    let selection = useSelection((state) => state.selection)
 
     return(
         <ul className={classNames(className, styles.articles)}>
@@ -19,9 +21,10 @@ export default function Articles({className, articles}) {
                     if (!!item?.cover) {
                         src = item?.cover?.type === "external" ? item.cover.external.url : item.cover.file.url;
                     }
+
                     return (
                         <Card
-                            id={id}
+                            id={item.id}
                             key={id}
                             title={`${item?.icon?.emoji ? item?.icon?.emoji : ""} ${RenderPlainText(item.properties.Name.title)}`}
                             description={date}
@@ -33,6 +36,7 @@ export default function Articles({className, articles}) {
                                 text: "Lire l'article"
                             }}
                             image={src ? { src: src } : null}
+                            className={classNames({ [`${styles.selected}`]: selection === item.id }) }
 
                         />
                     )

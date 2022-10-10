@@ -2,7 +2,7 @@
   border: var(--black) var(--borderWidth) solid;
   background: var(--white);
   position: relative;
-  max-height: 400px;
+  height: 400px;
   width: 100%;
   /* cursor: pointer; */
   display: flex;
@@ -10,6 +10,7 @@
   flex-direction: column;
   align-content: center;
   transition: transform 100ms ease-in-out;
+  overflow: hidden;
 }
 .card:hover{
   transform: translateY(-1px);

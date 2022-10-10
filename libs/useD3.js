@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
+
 export const useD3 = (renderChartFn, dependencies) => {
     const ref = React.useRef();
     React.useEffect(() => {
@@ -11,12 +12,17 @@ export const useD3 = (renderChartFn, dependencies) => {
     return ref;
 }
 
-export function timePlot(data, ref, {
+export function timePlot(data, ref, setSelection, goToArticle, {
     x = d => d.track,  // given d in data, returns the (quantitative) value x
     y = d => d.start, // given d in data, returns the (categorical) value y
     y2 = d => d.end, // given d in data, returns the (categorical) value y2
     z = d => d.phase,// given d in data, returns the (categorical) value z
-    description = d => ({name : d.name}),
+    description = d => ({
+        name : d.name,
+        id: d.id,
+        phase : d.phase,
+        track : d.track
+    }),
     r = 10, // (fixed) radius of dots, in pixels
     yFormat, // a format specifier for the x-axis
     marginTop = 150, // top margin, in pixels
@@ -113,7 +119,9 @@ export function timePlot(data, ref, {
     const eventsTracks = tracks.append("g").attr("class", "eventsTracks");
 
     const click = function (d) {
-        console.log(DESC[this.__data__].name);
+        let id = DESC[this.__data__].id;
+        setSelection(id)
+        goToArticle(id)
     }
     const show = function (d) {
         Tooltip.style("opacity", 1)
@@ -126,10 +134,12 @@ export function timePlot(data, ref, {
             .attr("stroke-opacity", 0.5)
     }
     const displayTooltip = function(d){
+        const event = DESC[this.__data__];
         Tooltip
-            .html(`${DESC[this.__data__].name}`)
+            .html(`<h3>${event.name}</h3>
+            <p>${event.phase}</p>`)
             .style("left", (d3.pointer(d)[0] + 70) + "px")
-            .style("top", (d3.pointer(d)[1] - 70) + "px")
+            .style("top", (d3.pointer(d)[1] - 150) + "px")
     }
         
     // Create events lines
@@ -148,27 +158,6 @@ export function timePlot(data, ref, {
         .on("mousemove", displayTooltip)
         .on("mouseover", show)
         .on("mouseleave", hide)
-
-
-    // // create a tooltip
-    // var Tooltip = svg.append("div")
-    //     .style("opacity", 1)
-    //     .attr("class", "tooltip")
-    //     .style("background-color", "red")
-    //     .style("border", "solid")
-    //     .style("border-width", "2px")
-    //     .style("border-radius", "5px")
-    //     .style("width", "50px")
-    //     .style("height", "50px")
-    //     .style("padding", "5px")
-
-    // var mousemove = function (d) {
-    //     Tooltip
-    //         .html("The exact value of<br>this cell is: " + d)
-    //         .style("left", (d3.mouse(this)[0] + 70) + "px")
-    //         .style("top", (d3.mouse(this)[1]) + "px")
-    // }
-
 
 
     tracks.append("text")
