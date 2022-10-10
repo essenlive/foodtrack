@@ -1,6 +1,6 @@
 import Timeline from "@components/Timeline";
 import Map from "@components/Map";
-import styles from "@styles/visualisation.module.css";
+import styles from "@styles/components/visualisation.module.css";
 import * as Tabs from '@radix-ui/react-tabs';
 
 export default function Visualisation({articles, className}) {

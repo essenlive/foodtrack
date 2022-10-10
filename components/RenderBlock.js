@@ -1,4 +1,4 @@
-import styles from "@styles/blocks.module.css";
+import styles from "@styles/components/blocks.module.css";
 import Link from "next/link";
 
 export const RenderPlainText = (text) => {

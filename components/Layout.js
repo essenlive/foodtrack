@@ -1,4 +1,4 @@
-import styles from "@styles/layout.module.css";
+import styles from "@styles/components/layout.module.css";
 import Head from "next/head";
 import Navigation from "@components/Navigation";
 import Articles from "@components/Articles";

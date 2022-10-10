@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import styles from "@styles/tags.module.css";
+import styles from "@styles/components/tags.module.css";
 
 const Tags = ({ tags, colorMap, className, dark }) => {
 

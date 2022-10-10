@@ -2,7 +2,7 @@ import { getDatabase, getPage, getContent } from "@libs/notion";
 import { RenderText, RenderBlock } from "@components/RenderBlock";
 import Link from "next/link";
 import Layout from "@components/Layout";
-import styles from "@styles/article.module.css";
+import styles from "@styles/pages/article.module.css";
 import classNames from "classnames";
 import { VscChromeClose } from "react-icons/vsc";
 import { useNavigation } from "@libs/states";

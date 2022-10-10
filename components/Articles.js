@@ -1,4 +1,4 @@
-import styles from "@styles/articles.module.css";
+import styles from "@styles/components/articles.module.css";
 import classNames from "classnames";
 import { RenderPlainText } from "@components/RenderBlock";
 import Card from "@components/Card";

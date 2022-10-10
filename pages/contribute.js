@@ -1,7 +1,7 @@
 import { getContent, getDatabase, getPage } from "@libs/notion";
 import Layout from "@components/Layout";
 import { RenderText, RenderBlock } from "@components/RenderBlock";
-import styles from "@styles/aside.module.css"
+import styles from "@styles/pages/aside.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";

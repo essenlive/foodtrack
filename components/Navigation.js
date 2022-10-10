@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { FiArrowRight } from 'react-icons/fi'
-import styles from "@styles/navigation.module.css";
+import styles from "@styles/components/navigation.module.css";
 import classNames from 'classnames';
 import { useFilters } from '@libs/states.js'
 

@@ -1,6 +1,6 @@
 import Tags from '@components/Tags'
 import Link from 'next/link'
-import styles from "@styles/card.module.css";
+import styles from "@styles/components/card.module.css";
 import classNames from 'classnames';
 
 const Card = ({ id, title, description, subtitle, tags, colorMap, link, image, className, emoji }) => {

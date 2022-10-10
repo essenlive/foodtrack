@@ -2,7 +2,7 @@ import { useD3, timePlot } from '@libs/useD3';
 import classNames from "classnames";
 import { organizeArticle } from "@libs/filtersHelper";
 import React from 'react';
-import styles from "@styles/timeline.module.css";
+import styles from "@styles/components/timeline.module.css";
 import { useSelection } from '@libs/states';
 import { useRouter } from 'next/router'
 
