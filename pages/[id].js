@@ -17,7 +17,6 @@ export default function Article({ page, blocks, articles, className }) {
   // useEffect(() => {
   //   setNavigationMenu(false)
   // });
-  console.log(page);
 
   if (!page) return (<div />)
   let date = null
