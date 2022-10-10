@@ -87,6 +87,7 @@
     text-transform: uppercase;
     font-family: var(--font-header);
     font-weight: 800; 
+    transition: transform 100ms ease-in-out;
   }
 .contribute svg{
   margin-left: 1rem;
