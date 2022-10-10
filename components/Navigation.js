@@ -15,7 +15,8 @@ export default function Navigation({ className }) {
 
             <div className={styles.logo}>
                 <Link href={`/`} >
-                    <h1 className={styles.title}>Foodtrack </h1>
+                    {/* <h1 className={styles.title}>Foodtrack </h1> */}
+                    <img src='/images/logo.png'/>
                 </Link>
                 <h2 className={styles.subtitle}>Héritage et devenir du système alimentaire alternatif parisien </h2>
 
