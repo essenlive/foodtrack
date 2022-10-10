@@ -5,9 +5,7 @@ import Articles from "@components/Articles";
 import classNames from "classnames";
 import { useNavigation, useFilters } from '@libs/states.js'
 import {filterArticles} from "@libs/filtersHelper";
-import dynamic from "next/dynamic";
-import Timeline from "@components/Timeline";
-// const Timeline = dynamic(() => import("@components/Timeline"), { ssr: false })
+import Visualisation from "@components/Visualisation";
 
 
 export default function Layout({ page, children, articles }) {
@@ -69,13 +67,10 @@ export default function Layout({ page, children, articles }) {
 
             />
 
-            <Timeline
-                className={classNames(styles.timeline)}
+            <Visualisation
                 articles={filteredArticles}
+                className={styles.visualisation}
             />
-            {/* <div className={classNames(styles.timeline)} >
-                <img src="/timeline.png"/>
-            </div> */}
 
             <Articles
                 className={classNames(styles.articles, { [`${styles.articlesActive}`]: (!navigationMenuState && !navigationAsideState) })}

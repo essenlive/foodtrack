@@ -15,6 +15,9 @@ export default function Articles({className, articles}) {
                     if (!!item.properties?.Date?.date?.start) {
                         date = new Date(item.properties.Date.date.start).toLocaleString("fr-FR", { year: "numeric" });
                     }
+                    if (!!item.properties?.Date?.date?.end) {
+                        date = `${date} → ${new Date(item.properties.Date.date.end).toLocaleString("fr-FR", { year: "numeric" })}`;
+                    }
 
 
                     let src = null;
@@ -26,7 +29,8 @@ export default function Articles({className, articles}) {
                         <Card
                             id={item.id}
                             key={id}
-                            title={`${item?.icon?.emoji ? item?.icon?.emoji : ""} ${RenderPlainText(item.properties.Name.title)}`}
+                            emoji={item?.icon?.emoji}
+                            title={RenderPlainText(item.properties.Name.title)}
                             description={date}
                             subtitle={item.properties.Phase?.select?.name }
                             tags={item.properties.Aliment.multi_select.map(el => el.name)}

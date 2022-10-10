@@ -14,16 +14,16 @@ import { validatedArticles } from "@libs/filtersHelper";
 export default function Article({ page, blocks, articles, className }) {
   let setNavigationAside = useNavigation((state) => state.setNavigationAside);
   setNavigationAside(true)
-  // useEffect(() => {
-  //   setNavigationMenu(false)
-  // });
 
   if (!page) return (<div />)
+
   let date = null
   if (!!page.properties?.Date?.date?.start) {
     date = new Date(page.properties.Date.date.start).toLocaleString("fr-FR", { year: "numeric" });
-  };
-
+  }
+  if (!!page.properties?.Date?.date?.end) {
+    date = `${date} → ${new Date(page.properties.Date.date.end).toLocaleString("fr-FR", { year: "numeric" })}`;
+  }
 
 
   return (
@@ -37,12 +37,24 @@ export default function Article({ page, blocks, articles, className }) {
         </div>
       </Link>
       <div className={classNames(className, styles.article)}>
+        <div className={styles.cover}>
 
         {page.cover &&
 
           <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
             page.cover.file.url} alt="" />
+            
         }
+
+        {date &&
+          <div className={styles.date}>
+            {date}
+          </div>
+        }
+        </div>
+
+      <div className={styles.page}>
+
         <div className={styles.infos}>
 
           {page.page_title &&
@@ -51,11 +63,6 @@ export default function Article({ page, blocks, articles, className }) {
             </h2>
           }
 
-          {date &&
-            <div className={styles.date}>
-              {date}
-            </div>
-          }
           {page.properties?.Phase?.select?.name &&
             <h4 className={styles.subtitle}> {page.properties?.Phase.select.name}</h4>
           }
@@ -71,9 +78,9 @@ export default function Article({ page, blocks, articles, className }) {
 
           {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
         </div>
+        </div>
         {page.properties?.Relations.relation.length > 0 && 
           <div className={styles.related}>
-            <h3>Articles liés</h3>
             <Articles articles={page.properties?.Relations?.relation}/>
           </div>
         }

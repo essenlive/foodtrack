@@ -1,7 +1,7 @@
 import { getContent, getDatabase, getPage } from "@libs/notion";
 import Layout from "@components/Layout";
 import { RenderText, RenderBlock } from "@components/RenderBlock";
-import styles from "@styles/about.module.css"
+import styles from "@styles/aside.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
@@ -12,43 +12,44 @@ import { validatedArticles } from "@libs/filtersHelper";
 export default function Contribute({ page, blocks, articles, className }) {
   let setNavigationAside = useNavigation((state) => state.setNavigationAside);
   setNavigationAside(true)
-  console.log('contribute');
 
 
 
   return (
-    <Layout 
+    <Layout
       page={page}
       articles={articles}
     >
       <Link href={`/`} >
-        <div className={styles.close}onClick={() => { setNavigationAside(false) }}>
+        <div className={styles.close} onClick={() => { setNavigationAside(false) }}>
           <IoMdClose />
         </div>
       </Link>
       <div className={classNames(className, styles.about)}>
 
 
-      {page.cover &&
+        <div className={styles.cover}>
 
-        <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
-          page.cover.file.url} alt="" />
-      }
-      <div className={styles.infos}>
+          {page.cover &&
 
-        {page.page_title &&
-          <h2 className={styles.title}>
-            {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
-          </h2>
-        }
-        {page.page_title &&
-          <h2 className={styles.title}>
-            {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
-          </h2>
-        }
-      </div>
-      <div className={styles.content}>
-        {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+            <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
+              page.cover.file.url} alt="" />
+
+          }
+          </div>
+        <div className={styles.page}>
+
+          <div className={styles.infos}>
+
+            {page.page_title &&
+              <h2 className={styles.title}>
+                {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
+              </h2>
+            }
+          </div>
+          <div className={styles.content}>
+            {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+          </div>
         </div>
       </div>
     </Layout>

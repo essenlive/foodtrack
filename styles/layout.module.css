@@ -12,45 +12,32 @@
 }
 
 .navigation{ 
-  width: 20%;
+  width: 30%;
   height: 100%;
   flex-grow: 0;
 }
-.navigationActive{  width: 50%; }
 
-.timeline{
+.visualisation{
   width: 30%;
-}
-.timeline{
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: 2rem;
 }
 
-
-.timeline img{
-  padding: 2rem 0 2rem 2rem;
-  width: 100%;
-  object-fit: contain;
-  overflow-y: scroll;
-}
 
 
 .articles {
-  width: 20%;
-  background: var(--white);
+  width: 40%;
+  background-color: var(--secondary);
   overflow-y: scroll;
   border-left: var(--black) var(--borderWidth) solid;
-}
-.articlesActive{
-  width: 50%;
 }
 
 .aside{
   position: absolute;
   display: flex;
   flex-direction: column;
+  background-color: var(--secondary);
   border-left: solid var(--black) var(--borderWidth);
   flex-grow: 0;
   width: 50%;

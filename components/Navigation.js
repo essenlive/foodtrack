@@ -1,20 +1,17 @@
 import Link from 'next/link'
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
-import { VscArrowLeft, VscArrowRight } from "react-icons/vsc"
 import styles from "@styles/navigation.module.css";
 import classNames from 'classnames';
-import { useNavigation, useFilters } from '@libs/states.js'
+import { useFilters } from '@libs/states.js'
 
 
 
 export default function Navigation({className}) {
-    let { navigationMenuState, toggleNavigationMenu } = useNavigation((state) => state)
     let { filters, activeFilters, setFilters } = useFilters((state) => state)
 
     return(
-        <header className={classNames(className, styles.header, { [`${styles.navigationActive}`]: navigationMenuState })}>
+        <header className={classNames(className, styles.header)}>
         
-            <div onClick={() => { toggleNavigationMenu() }} className={styles.collapse}>{navigationMenuState ? <VscArrowLeft /> : <VscArrowRight /> }</div>
         <div className={styles.logo}>
         <Link href={`/`} >
         <h1 className={styles.title}>Foodtrack </h1>

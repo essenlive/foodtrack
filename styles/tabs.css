@@ -1,0 +1,22 @@
+.tabs-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+}
+.tabs-trigger {
+    border: none;
+    background-color: var(--gray-100);
+    border-radius: var(--borderRadius-md);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: var(--font-header);
+    text-transform: uppercase;
+}
+.tabs-trigger[data-state='active'], .tabs-trigger:hover {
+    background-color: var(--gray-200);
+}
+.tabs-content {
+    height: 100%;
+    width: 100%;
+}

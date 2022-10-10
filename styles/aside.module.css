@@ -1,12 +1,8 @@
-.article{
+.about{
   overflow-y: scroll;
   background-color: var(--secondary);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  min-height: 100vh;
 }
-
 .cover {
   width: 100%;
   min-height: 250px;
@@ -15,51 +11,26 @@
   position: relative;
   background-color: var(--secondary);
 }
-
-.cover img{
+.cover img {
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
-.date {
-  position: absolute;
-  bottom: 4rem;
-  right: 2rem;
-  padding: 0.5rem 1rem;
-  border: solid var(--black) var(--borderWidth);
-  border-radius: var(--borderRadius-md);
-  background: var(--white);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-size: var(--fontSize-lg);
-  font-family: var(--font-header);
-  cursor: pointer;
-  transition: ease-in-out 0.2s;
-  z-index: 100;
 
+.infos, .content{
+  padding: 1rem 2rem;
 }
-
-
-.infos,
-.content{
-  padding: 1rem 2rem 0;
-}
-
-.related { padding: 0 2rem;}
-.related > ul {  margin: 0rem -1rem;}
-
-.page {
+.page{
   margin: -3rem 2rem 2rem 2rem;
   border: solid var(--font-color) var(--borderWidth);
   border: solid var(--font-color) var(--borderWidth);
-  border-radius: var(--borderRadius-md);
-  background: var(--white);
-  z-index: 10;
-  position: relative;
+    border-radius: var(--borderRadius-md);
+    background: var(--white);
+    z-index: 10;
+    position: relative;
 }
 
-.back {
+.close {
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -74,8 +45,7 @@
   font-size: var(--fontSize-xl);
   cursor: pointer;
   transition: ease-in-out 0.2s;
-  z-index: 100;
+  z-index: 100;  
 
 }
-
 

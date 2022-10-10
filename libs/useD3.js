@@ -26,7 +26,7 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     r = 10, // (fixed) radius of dots, in pixels
     yFormat, // a format specifier for the x-axis
     marginTop = 150, // top margin, in pixels
-    marginRight = 0, // right margin, in pixels
+    marginRight = 30, // right margin, in pixels
     marginBottom = 30, // bottom margin, in pixels
     marginLeft = 30, // left margin, in pixels
     width = ref.current.offsetWidth - 4 * 20, // outer width, in pixels
@@ -97,6 +97,7 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
+        .attr("font-size", "0.8rem")
         .call(g => g.select(".domain").remove())
         .call(g => g.selectAll(".tick line").clone()
             .attr("x2", height - marginTop - marginBottom)
@@ -106,8 +107,8 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     const tracks = svg.append("g")
         .attr("class", "tracks")
         .attr("text-anchor", "left")
-        .attr("font-family", "var(--font-body)")
-        .attr("font-size", "1rem")
+        .attr("font-family", "var(--font-header)")
+        .attr("font-size", "1.2rem")
         .selectAll()
         .data(d3.group(IndexItems, i => X[i])) // defini les datas pour toutes les tracks comme une Map : track => IndexItems
         .join("g")

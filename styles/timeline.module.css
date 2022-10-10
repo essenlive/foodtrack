@@ -1,16 +1,7 @@
-.tooltip{
-    position: absolute;
-    border: var(--black) var(--borderWidth) solid;
-    background: var(--white);
-    max-height: 400px;
-    display: flex;
-    background: var(--white);
-    flex-direction: column;
-    align-content: center;
-    padding: 1rem;
-    transition: transform 100ms ease-in-out;
-}
-
 .timeline{
     position: relative;
+}
+
+.timeline svg{
+    width: 100%;
 }

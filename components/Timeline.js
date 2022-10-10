@@ -15,7 +15,7 @@ export default function Timeline({ className, articles }) {
 
         return (
             <div ref={chartRef} className={classNames(className, styles.timeline)}>
-                <div className={styles.tooltip}> </div>
+                <div className="tooltip"> </div>
                 <svg >
                 </svg>
             </div>

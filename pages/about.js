@@ -1,7 +1,7 @@
 import { getContent, getDatabase, getPage } from "@libs/notion";
 import Layout from "@components/Layout";
 import { RenderText, RenderBlock } from "@components/RenderBlock";
-import styles from "@styles/about.module.css"
+import styles from "@styles/aside.module.css"
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
@@ -12,11 +12,6 @@ import { validatedArticles } from "@libs/filtersHelper";
 export default function Home({ page, blocks, articles, className }) {
   let setNavigationAside = useNavigation((state) => state.setNavigationAside);
   setNavigationAside(true)
-  // useEffect(() => {
-  //   setNavigationMenu(false)
-  // });
-  console.log('about');
-
   return (
     <Layout 
       page={page}
@@ -29,29 +24,29 @@ export default function Home({ page, blocks, articles, className }) {
       </Link>
       <div className={classNames(className, styles.about)}>
 
+        <div className={styles.cover}>
 
-      {page.cover &&
+        {page.cover &&
 
-        <img className={styles.cover} src={page.cover.type === "external" ? page.cover.external.url :
-          page.cover.file.url} alt="" />
-      }
-      <div className={styles.infos}>
-
-        {page.page_title &&
-          <h2 className={styles.title}>
-            {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
-          </h2>
-        }
-        {page.page_title &&
-          <h2 className={styles.title}>
-            {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
-          </h2>
+          <img src={page.cover.type === "external" ? page.cover.external.url :
+            page.cover.file.url} alt="" />
         }
       </div>
-      <div className={styles.content}>
-        {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+      <div className={styles.page}>
+
+        <div className={styles.infos}>
+          {page.page_title &&
+            <h2 className={styles.title}>
+              {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
+            </h2>
+          }
+        </div>
+        <div className={styles.content}>
+          {blocks.map((block) => (<RenderBlock block={block} key={block.id} />))}
+          </div>
         </div>
       </div>
+
     </Layout>
   );
 }
