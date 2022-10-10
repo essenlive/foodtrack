@@ -59,9 +59,12 @@ export default function Navigation({className}) {
         </div>
 
         <div className={styles.socials}>
-        <Link href={`/about`} >
-        <a className="link">À propos</a>
-        </Link>
+            <Link href={`/about`} >
+                <a className="link">À propos</a>
+            </Link>
+            <Link href={`/contribute`} >
+                <a className="link">Contribuer</a>
+            </Link>
         <Link href={`mailto:hello@fabcity.paris`} >
         <span><FaEnvelope /></span>
         </Link>

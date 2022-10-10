@@ -9,13 +9,12 @@ import { useNavigation } from "@libs/states";
 // import { useEffect } from "react";
 import { validatedArticles } from "@libs/filtersHelper";
 
-export default function Home({ page, blocks, articles, className }) {
+export default function Contribute({ page, blocks, articles, className }) {
   let setNavigationAside = useNavigation((state) => state.setNavigationAside);
   setNavigationAside(true)
-  // useEffect(() => {
-  //   setNavigationMenu(false)
-  // });
-  console.log('about');
+  console.log('contribute');
+
+
 
   return (
     <Layout 
@@ -58,9 +57,9 @@ export default function Home({ page, blocks, articles, className }) {
 
 export const getStaticProps = async () => {
 
-  const aboutpageId = "28a70d4c59f54a84b57ae18abd4552e2";
-  const page = await getPage(aboutpageId);
-  const pageContent = await getContent(aboutpageId);
+  const pageId = "fda72479cc2a4b6383b10014f7504ea5";
+  const page = await getPage(pageId);
+  const pageContent = await getContent(pageId);
 
   const articles = validatedArticles(await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8"))
 

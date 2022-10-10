@@ -86,10 +86,6 @@
   color: var(--black);
 }
 
-.socials span:not(:first-child) {
+.socials *:not(:first-child) {
   margin-left: 1rem;
-}
-.socials span:first-child {
-  width: 70%;
-  font-size: var(--fontSize-lg);
 }
