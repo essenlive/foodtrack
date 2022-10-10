@@ -78,6 +78,30 @@
   font-size: var(--fontSize-lg);
   max-width: 300px;
 }
+.contribute{
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid var(--font-color) var(--borderWidth);
+    border-radius: var(--borderRadius-md);
+    background: var(--white);
+    font-size: var(--fontSize-lg);
+    cursor: pointer;
+    color: var(--black);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: var(--font-header);
+    font-weight: 800; 
+  }
+.contribute svg{
+  margin-left: 1rem;
+}
+.contribute:hover {
+  transform: rotate(-1deg);
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+
 
 .socials {
   display: flex;
