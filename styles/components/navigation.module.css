@@ -7,10 +7,11 @@
   padding: 2rem;
   background-color: var(--secondary);
   border-right: solid var(--black) var(--borderWidth);
-  z-index: 1
+  z-index: 10
 }
 .logo{
   margin-bottom: 2rem;
+  cursor: pointer;
 }
 .logo img{
   object-fit: contain;

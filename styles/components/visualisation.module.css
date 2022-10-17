@@ -1,12 +1,56 @@
 .timeline, .map {
   height: 100%;
   width: 100%;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
-.map{
-  padding: 0;
+@media (--screen-md) {
+  .timeline,
+  .map {
+    margin : 0;
   }
+}
 .map img {
+  height: 100%;
+  width: 100%;
+}
+
+/* TABS */
+
+.tabsList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1rem;
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  z-index: 2;
+}
+@media (--screen-md) {
+  .tabsList{top: 5rem;}
+}
+.tabsTrigger {
+  border: none;
+  background-color: var(--gray-100);
+  border-radius: var(--borderRadius-md);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-header);
+  text-transform: uppercase;
+}
+@media (--screen-md) {
+  .tabsTrigger{
+    font-size: var(--fontSize-xs);
+  }
+}
+
+.tabsTrigger[data-state='active'],
+.tabsTrigger:hover {
+  background-color: var(--gray-200);
+}
+
+.tabsContent {
   height: 100%;
   width: 100%;
 }

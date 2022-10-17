@@ -12,16 +12,16 @@
     "@radix-ui/react-tabs": "^1.0.0",
     "classnames": "^2.3.2",
     "d3": "^7.6.1",
-    "mapbox-gl": "^2.10.0",
     "next": "^11.1.4",
     "normalize.css": "^8.0.1",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^7.8.2",
     "react": "17.x",
     "react-dom": "17.x",
     "react-icons": "4.2.0",
-    "react-map-gl": "^7.0.19",
     "url-parse": "^1.5.3",
     "zustand": "^4.1.1"
+  },
+  "devDependencies": {
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.8.2"
   }
 }

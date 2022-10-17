@@ -75,7 +75,7 @@
     border-top: solid var(--black) var(--borderWidth);
     flex-grow: 0;
     width: 100%;
-    height: 80%;
+    height: calc(100% - 5rem);
     transform: translateY(100%);
     bottom: 0;
   }
