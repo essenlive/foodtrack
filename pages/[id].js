@@ -102,7 +102,7 @@ export const getStaticProps = async (context) => {
   const { id } = context.params;
   const page = await getPage(id);
   const blocksWithChildren = await getContent(id);
-  console.log(page);
+
   // Get related pages information
   if (page.properties?.Relations?.relation){
     page.properties.Relations.relation = await Promise.all(page.properties?.Relations.relation.map(async relation => await getPage(relation.id)))

@@ -30,7 +30,8 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     marginBottom = 30, // bottom margin, in pixels
     marginLeft = 30, // left margin, in pixels
     width = ref.current.offsetWidth - 4 * 20, // outer width, in pixels
-    height = ref.current.offsetHeight * 2 - 4 * 20, // outer height, in pixels, defaults to heuristic
+    // height = ref.current.offsetHeight * 2 - 4 * 20, // outer height, in pixels, defaults to heuristic
+    height = ref.current.offsetHeight - 4 * 20, // outer height, in pixels, defaults to heuristic
     xDomain, // [xmin, xmax]
     xRange, // [left, right]
     xLabel, // a label for the x-axis

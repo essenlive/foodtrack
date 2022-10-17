@@ -26,16 +26,10 @@ export const useFilters = create((set) => ({
 }))
 
 export const useNavigation = create((set) => ({
-    navigationMenuState: true,
+    navigationMobileState: true,
     navigationAsideState: false,
-    toggleNavigationMenu: () => set((state) => ({ navigationMenuState: !state.navigationMenuState })),
+    toggleNavigationMobileState: () => set((state) => ({ navigationMobileState: !state.navigationMobileState })),
     toggleNavigationAside: () => set((state) => ({ navigationAsideState : !state.navigationAsideState })),
-    setNavigationMenu: (newState) => set(() => ({ navigationMenuState: newState })),
+    setnavigationMobileState: (newState) => set(() => ({ navigationMobileState: newState })),
     setNavigationAside: (newState) => set(() => ({ navigationAsideState: newState })),
-}))
-export const useArticle = create((set) => ({
-    articleState: false,
-    setArticleActive: () => set((state) => ({ articleState: true })),
-    setArticleInactive: () => set((state) => ({ articleState: false })),
-    toggleArticle: () => set((state) => ({ articleState: !state.articleState })),
 }))

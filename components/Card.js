@@ -9,7 +9,6 @@ const Card = ({ id, title, description, subtitle, tags, colorMap, link, image, c
         <Link key={id}  href={{ pathname: link.path }}>
             <div key={id} className={classNames(styles.card, className)}>
             
-                    <span id={id} className={styles.anchor}></span>
 
                     <div className={styles.image}>
                         {image && image.src &&
@@ -36,6 +35,7 @@ const Card = ({ id, title, description, subtitle, tags, colorMap, link, image, c
                         <Tags tags={tags} colorMap={colorMap} className={styles.tags} dark={true} />
                     }
 
+                <span id={id} className={styles.anchor}></span>
 
 
             </div>

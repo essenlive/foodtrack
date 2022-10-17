@@ -9,11 +9,10 @@ import Visualisation from "@components/Visualisation";
 
 
 export default function Layout({ page, children, articles }) {
-    let { navigationMenuState, navigationAsideState } = useNavigation((state) => state)
+    let { navigationMobileState, navigationAsideState } = useNavigation((state) => state)
     let { activeFilters, filters, createFilters } = useFilters((state) => state)
 
     if (!filters) createFilters(articles)
-
     const filteredArticles = filterArticles(articles, activeFilters)
 
     return (
@@ -63,8 +62,7 @@ export default function Layout({ page, children, articles }) {
             }
             </Head>
             <Navigation 
-                className={classNames(styles.navigation, { [`${styles.navigationActive}`]: navigationMenuState }) }
-
+                className={classNames(styles.navigation, { [`${styles.hidden}`]: navigationMobileState }) }
             />
 
             <Visualisation
@@ -73,7 +71,7 @@ export default function Layout({ page, children, articles }) {
             />
 
             <Articles
-                className={classNames(styles.articles, { [`${styles.articlesActive}`]: (!navigationMenuState && !navigationAsideState) })}
+                className={styles.articles}
                 articles={filteredArticles}
             />
                 

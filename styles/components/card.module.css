@@ -101,3 +101,25 @@
   top: -200px;
   visibility: hidden;
 }
+
+@media (--screen-md) {
+  .image {
+    height: 40%;
+  }
+  .subtitle {
+    display: none;
+  }
+  .title{
+    font-size: var(--fontSize-sm);
+  }
+  .description, .tags{
+    font-size: var(--fontSize-xs);
+  }
+    .card>div:last-child {
+      padding-bottom: 0.5rem;
+    }
+    .title,
+    .tags {
+      padding: 0.5rem 0.5rem 0;
+      }
+}

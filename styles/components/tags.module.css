@@ -8,6 +8,7 @@
 
 .tag {
   padding: 0.25rem 0.5rem;
+  font-size: var(--fontSize-xs);
   font-weight: 800;
   background-color: var(--gray-200);
   display: inline-block;
@@ -16,4 +17,9 @@
   margin-bottom: 0.25rem;
   font-family: var(--font-mono);
   border-radius: 0.25rem;
+}@media (--screen-md) {
+.tag {
+    padding: 0.1rem 0.2rem;
+    font-size: var(--fontSize-xs);
+  }
 }

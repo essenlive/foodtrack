@@ -1,7 +1,7 @@
 .articles{
   list-style: none;
-  display: grid;
   gap: 1rem;
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   padding: 1rem;
   position: relative;
@@ -11,4 +11,11 @@
 .selected{
   transform: rotate(2deg);
     box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.3);
+}
+@media (--screen-md) {
+  .articles{
+    grid-template-columns: minmax(100px, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
 }
