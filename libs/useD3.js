@@ -23,12 +23,12 @@ export function timePlot(data, ref, setSelection, goToArticle, {
         phase : d.phase,
         track : d.track
     }),
-    r = 10, // (fixed) radius of dots, in pixels
+    r = ref.current.offsetWidth / 50, // (fixed) radius of dots, in pixels
     yFormat, // a format specifier for the x-axis
-    marginTop = 150, // top margin, in pixels
-    marginRight = 30, // right margin, in pixels
-    marginBottom = 30, // bottom margin, in pixels
-    marginLeft = 30, // left margin, in pixels
+    marginTop = ref.current.offsetWidth / 1.5, // top margin, in pixels
+    marginRight = ref.current.offsetWidth / 20, // right margin, in pixels
+    marginBottom = ref.current.offsetWidth / 5, // bottom margin, in pixels
+    marginLeft = ref.current.offsetWidth / 20, // left margin, in pixels
     width = ref.current.offsetWidth - 4 * 20, // outer width, in pixels
     // height = ref.current.offsetHeight * 2 - 4 * 20, // outer height, in pixels, defaults to heuristic
     height = ref.current.offsetHeight - 4 * 20, // outer height, in pixels, defaults to heuristic
@@ -43,7 +43,7 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     zDomain, // array of z-values
     colors, // color scheme
     stroke = "currentColor", // stroke of rule connecting dots
-    strokeWidth = 10, // stroke width of rule connecting dots
+    strokeWidth = ref.current.offsetWidth / 50, // stroke width of rule connecting dots
     strokeLinecap = "round", // stroke line cap of rule connecting dots
     strokeOpacity, // stroke opacity of rule connecting dots
     duration: initialDuration = 250, // duration of transition, if any
@@ -98,7 +98,7 @@ export function timePlot(data, ref, setSelection, goToArticle, {
     svg.append("g")
         .attr("transform", `translate(${marginLeft},0)`)
         .call(yAxis)
-        .attr("font-size", "0.8rem")
+        .attr("font-size", ref.current.offsetWidth / 20)
         .call(g => g.select(".domain").remove())
         .call(g => g.selectAll(".tick line").clone()
             .attr("x2", height - marginTop - marginBottom)
@@ -109,7 +109,7 @@ export function timePlot(data, ref, setSelection, goToArticle, {
         .attr("class", "tracks")
         .attr("text-anchor", "left")
         .attr("font-family", "var(--font-header)")
-        .attr("font-size", "1.2rem")
+        .attr("font-size", ref.current.offsetWidth / 15)
         .selectAll()
         .data(d3.group(IndexItems, i => X[i])) // defini les datas pour toutes les tracks comme une Map : track => IndexItems
         .join("g")

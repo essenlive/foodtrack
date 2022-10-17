@@ -21,6 +21,7 @@
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
 }
 
 
@@ -61,12 +62,12 @@
     overflow: hidden;
   }
   .visualisation {
-    margin-top: 5rem;
+    padding-top: 5rem;
     width: 60%;
   }
   .articles {
     position: relative;
-    margin-top: 5rem;
+    padding-top: 5rem;
     width: 40%;
   }
 
