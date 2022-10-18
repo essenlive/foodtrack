@@ -1,5 +1,5 @@
 import Timeline from "@components/Timeline";
-// import Map from "@components/Map";
+import Map from "@components/Map";
 import styles from "@styles/components/visualisation.module.css";
 import * as Tabs from '@radix-ui/react-tabs';
 import classNames from "classnames";
@@ -20,13 +20,8 @@ export default function Visualisation({articles, className}) {
                 </Tabs.Content>
 
                 <Tabs.Content value="map" className={styles.tabsContent}>
-                    <div className={styles.map}>
-                        <img src="/images/map.jpg"/>
-                    </div>
-                    {/* <Map
-                        articles={articles}
-                        className={styles.map}
-                    /> */}
+                <Map
+                    />
                 </Tabs.Content>
             </Tabs.Root>
         )}
