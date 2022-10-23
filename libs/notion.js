@@ -2,19 +2,89 @@ import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN, }); 
 
+const  simplifyPage = (page)=>{
+  page.page_title = null
+  let properties = Object.keys(page?.properties)
+  properties.forEach((property) => {
+
+    switch (page.properties[property].type) {
+      case "number":
+        if (page.properties[property][page.properties[property].type] === null) break
+        page[property] = page.properties[property][page.properties[property].type]
+        break;
+
+      case "relation":
+        page[property] = page.properties[property][page.properties[property].type].map((el) => el.id)
+        break
+
+      case "select":
+        if (page.properties[property][page.properties[property].type] === null) break
+        page[property] = page.properties[property][page.properties[property].type].name
+        break
+      case "multi_select":
+        page[property] = page.properties[property][page.properties[property].type].map(el => el.name)
+        break
+
+      case "checkbox":
+        page[property] = page.properties[property][page.properties[property].type]
+        break
+
+      case "date":
+        let formatted = null
+        if (page.properties[property][page.properties[property].type] === null){
+          page[property] = {start : null, end : null, formatted}
+          break  
+        }
+        page[property] = page.properties[property][page.properties[property].type]
+        formatted = new Date(page[property].start).toLocaleString("fr-FR", { year: "numeric" });
+        if (!!page[property].end) formatted = `${formatted} → ${new Date(page[property].end).toLocaleString("fr-FR", { year: "numeric" })}`;
+        page[property].formatted = formatted;
+        delete page[property].time_zone
+        break
+
+      case "rich_text":
+        page[property] = page.properties[property][page.properties[property].type].map(el => el.plain_text).join("")
+        break
+
+      case "title":
+        page[property] = page.properties[property][page.properties[property].type].map(el => el.plain_text).join("")
+        page.page_title = page[property]
+        break
+
+      default:
+        console.log(property, page.properties[property]);
+
+        break;
+    }
+  })
+  delete page.properties;
+  delete page.object;
+  delete page.created_time;
+  delete page.created_by;
+  delete page.last_edited_by;
+  delete page.last_edited_time;
+  page.cover = page.cover ? page.cover[page.cover.type].url : null;
+  page.icon = page.icon ? page.icon.emoji : null;
+  page.parent = page.parent ? page.parent[page.parent.type] : null
+  
+  return page
+}
+
+
+
 export const getDatabase = async (databaseId, filter, sort) => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter : filter,
     sorts: sort
   });
-  return response.results;
+
+  return response.results.map(page => simplifyPage(page));
 };
 
 export const getPage = async (pageId) => {
   const response = await notion.pages.retrieve({ page_id: pageId });
-  response.page_title = response.parent.type === 'database_id' ? response.properties.Name.title : response.properties.title.title ;
-  return response;
+  return simplifyPage(response)
 };
 
 export const getBlocks = async (blockId) => {

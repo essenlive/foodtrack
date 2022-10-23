@@ -9,7 +9,6 @@ export const RenderPlainText = (text) => {
 
 export const RenderText = ({ text }) => {
 
-
     if (!text) {
         return null;
     }
@@ -39,12 +38,11 @@ export const RenderText = ({ text }) => {
 export const RenderBlock = ({block}) => {
     const { type, id } = block;
     const value = block[type];
-    
     switch (type) {
         case "paragraph":
             return (
                 <p>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </p>
             );
         case "heading_1":

@@ -11,9 +11,9 @@ const Card = ({ id, title, description, subtitle, tags, colorMap, link, image, c
             
 
                     <div className={styles.image}>
-                        {image && image.src &&
+                        {image &&
                             <img
-                                src={image.src}
+                                src={image}
                                 alt={title}
                             />
                         }

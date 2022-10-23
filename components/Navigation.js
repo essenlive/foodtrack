@@ -12,6 +12,7 @@ export default function Navigation({ className }) {
     let { filters, activeFilters, setFilters } = useFilters((state) => state)
     let { navigationMobileState, toggleNavigationMobileState } = useNavigation((state) => state)
 
+
     return (
         <header className={classNames(className, styles.header, { [`${styles.hidden}`]: navigationMobileState })}>
 
@@ -22,8 +23,6 @@ export default function Navigation({ className }) {
             <div className={styles.logo}>
                 <Link href={`/`} >
                     <img src='/images/logo.png'/>
-                    {/* <h1 className={styles.title}>Foodtrack </h1> */}
-                    {/* <h2 className={styles.subtitle}>Héritage et devenir du système alimentaire alternatif parisien </h2> */}
                 </Link>
 
             </div>

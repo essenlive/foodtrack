@@ -78,6 +78,7 @@
     height: calc(100% - 5rem);
     transform: translateY(100%);
     bottom: 0;
+    z-index: 20;
   }
   .asideActive {
     transform: translateY(0%);

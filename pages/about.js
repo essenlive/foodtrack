@@ -6,12 +6,12 @@ import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import classNames from "classnames";
 import { useNavigation } from "@libs/states";
-// import { useEffect } from "react";
 import { validatedArticles } from "@libs/filtersHelper";
 
 export default function Home({ page, blocks, articles, className }) {
   let setNavigationAside = useNavigation((state) => state.setNavigationAside);
   setNavigationAside(true)
+
   return (
     <Layout 
       page={page}
@@ -24,20 +24,15 @@ export default function Home({ page, blocks, articles, className }) {
       </Link>
       <div className={classNames(className, styles.about)}>
 
-        <div className={styles.cover}>
-
-        {page.cover &&
-
-          <img src={page.cover.type === "external" ? page.cover.external.url :
-            page.cover.file.url} alt="" />
-        }
+      <div className={styles.cover}>
+        {page.cover && <img src={page.cover} alt="" /> }
       </div>
       <div className={styles.page}>
 
         <div className={styles.infos}>
           {page.page_title &&
             <h2 className={styles.title}>
-              {page.icon && page.icon.emoji} <RenderText text={page.page_title} />
+              {page.icon && page.icon} {page.page_title}
             </h2>
           }
         </div>
@@ -57,7 +52,10 @@ export const getStaticProps = async () => {
   const page = await getPage(aboutpageId);
   const pageContent = await getContent(aboutpageId);
 
-  const articles = validatedArticles(await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8"))
+  const articles = await getDatabase("f1d9d65a470043d493bb31e0e7fb62c8", {
+    "property": "Validée",
+    "checkbox": { "equals": true }
+  })
 
   return {
     props: {
