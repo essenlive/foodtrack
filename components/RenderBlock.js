@@ -48,32 +48,32 @@ export const RenderBlock = ({block}) => {
         case "heading_1":
             return (
                 <h1>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </h1>
             );
         case "heading_2":
             return (
                 <h2>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </h2>
             );
         case "heading_3":
             return (
                 <h3>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </h3>
             );
         case "quote":
             return (
                 <blockquote>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </blockquote>
             );
         case "bulleted_list_item":
         case "numbered_list_item":
             return (
                 <li>
-                    <RenderText text={value.text} />
+                    <RenderText text={value.rich_text} />
                 </li>
             );
         case "to_do":
@@ -81,7 +81,7 @@ export const RenderBlock = ({block}) => {
                 <div>
                     <label htmlFor={id}>
                         <input type="checkbox" id={id} defaultChecked={value.checked} />{" "}
-                        <RenderText text={value.text} />
+                        <RenderText text={value.rich_text} />
                     </label>
                 </div>
             );
@@ -89,7 +89,7 @@ export const RenderBlock = ({block}) => {
             return (
                 <details>
                     <summary>
-                        <RenderText text={value.text} />
+                        <RenderText text={value.rich_text} />
                     </summary>
                     {value.children?.map((block) => (
                         <RenderBlock key={block.id} block={block}/>
