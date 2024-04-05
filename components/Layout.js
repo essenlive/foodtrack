@@ -44,8 +44,7 @@ export default function Layout({ page, children, articles }) {
             <meta property='og:site_name' content='Foodtrack' />
             <meta property='og:url' content='https://foodtrack.paris' />
 
-
-            {page.page_title && <title>Foodtrack | {page.page_title}</title>}
+            {page.page_title && <title>Foodtrack | {[...page.page_title].join("")}</title>}
             {page.icon ?
                 <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${page.icon}</text></svg>`}></link>
                 :

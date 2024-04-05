@@ -64,6 +64,9 @@ export default function Navigation({ className }) {
                 <Link href={`/contribute`} >
                     <a className="link">Contribuer au contenu <FiArrowRight /></a>
                 </Link>
+                <Link href={`/partners`} >
+                    <a className="link">Partenaires</a>
+                </Link>
                 <Link href={`/about`} >
                     <a className="link">À propos</a>
                 </Link>
