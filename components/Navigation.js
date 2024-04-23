@@ -61,9 +61,9 @@ export default function Navigation({ className }) {
                 </select> en Île-de-France.
             </div>
             <div className={styles.menu}>
-                <Link href={`/contribute`} >
+                {/* <Link href={`/contribute`} >
                     <a className="link">Contribuer au contenu <FiArrowRight /></a>
-                </Link>
+                </Link> */}
                 <Link href={`/partners`} >
                     <a className="link">Partenaires</a>
                 </Link>
